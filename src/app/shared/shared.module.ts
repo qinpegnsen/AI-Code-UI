@@ -5,13 +5,15 @@ import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ImgErrDirective} from "../public/directives/img-err.directive";
 import {StateNamePipe} from "../public/pipes/state-name.pipe";
+import {MonacoEditorModule} from "ngx-monaco-editor";
 
 @NgModule({
   imports: [
     CommonModule,                 //核心模块，必须
     FormsModule,                  //表单支持
     ReactiveFormsModule,          //表单支持
-    NgZorroAntdModule.forRoot()   //zorroUI库
+    NgZorroAntdModule.forRoot(),  //zorroUI库
+    MonacoEditorModule.forRoot()  //代码编辑模块
   ],
   declarations: [
     StateNamePipe,          //将状态值转为对应状态名得管道
@@ -25,7 +27,8 @@ import {StateNamePipe} from "../public/pipes/state-name.pipe";
     ReactiveFormsModule,    //表单支持
     NgZorroAntdModule,      //zorroUI库
     StateNamePipe,          //将状态值转为对应状态名得管道
-    ImgErrDirective         //图片加载失败时，加载默认图片
+    ImgErrDirective,         //图片加载失败时，加载默认图片
+    MonacoEditorModule  //代码编辑模块
   ]
 })
 export class SharedModule {
