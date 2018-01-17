@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ProjectStepsComponent} from "../project-steps/project-steps.component";
 
 @Component({
   selector: 'app-project-frame',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectFrameComponent implements OnInit {
 
-  constructor() { }
+  constructor(public steps:ProjectStepsComponent) {
+    this.steps.current = 1;//添加项目的进度条
+  }
 
   ngOnInit() {
   }

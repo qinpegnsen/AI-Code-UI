@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectStepsComponent implements OnInit {
 
+  current:number = 0;   //进度条默认的进度
   constructor() { }
 
   ngOnInit() {

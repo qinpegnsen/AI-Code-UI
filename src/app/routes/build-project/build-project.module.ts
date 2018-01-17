@@ -9,11 +9,14 @@ import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'proInfo'},//一般不会出现，路由只有"/basic"时重定向到注册
-  {path: 'proInfo', component: ProjectInfoComponent},
-  {path: 'proFrames', component: ProjectFrameComponent},
-  {path: 'proRepository', component: ProjectRepositoryComponent},
-  {path: 'proSql', component: ProjectSqlComponent},
+  {path: '', redirectTo: 'proSteps'},
+  {path: 'proSteps', component: ProjectStepsComponent,children: [
+    {path: '', redirectTo: 'proInfo'},
+    {path: 'proInfo', component: ProjectInfoComponent},
+    {path: 'proFrames', component: ProjectFrameComponent},
+    {path: 'proRepository', component: ProjectRepositoryComponent},
+    {path: 'proSql', component: ProjectSqlComponent}
+  ]},
 ];
 
 @NgModule({
