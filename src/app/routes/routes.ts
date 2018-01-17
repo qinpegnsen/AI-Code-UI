@@ -8,7 +8,8 @@ export const routes = [
     component: MainComponent,
     children: [
       {path: '', redirectTo: '/store/home', pathMatch: 'full'},
-      {path: 'home', loadChildren: './home/home.module#HomeModule'}
+      {path: 'home', loadChildren: './home/home.module#HomeModule'},
+      {path: 'buildPro', loadChildren: './build-project/build-project.module#BuildProjectModule'}
     ]
   },
   {
