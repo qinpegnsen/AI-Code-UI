@@ -12,10 +12,10 @@ export const routes = [
     ]
   },
   {
-    path: 'simple',
+    path: 'main',
     component: SimpleComponent,
     children: [
-      {path: '', redirectTo: '/simple/home', pathMatch: 'full'},
+      {path: '', redirectTo: '/main/home', pathMatch: 'full'},
       {path: 'home', loadChildren: './home/home.module#HomeModule'}
     ]
   },
@@ -28,5 +28,5 @@ export const routes = [
     ]
   },
   // 路由指向找不到时，指向这里
-  {path: '**', redirectTo: '/store/home'}
+  {path: '**', redirectTo: '/main/home'}
 ];
