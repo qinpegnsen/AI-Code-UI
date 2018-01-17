@@ -1,6 +1,6 @@
-import {MainComponent} from "../layout/main/main.component";
-import {SimpleComponent} from "../layout/simple/simple.component";
-import {PageComponent} from "../layout/page/page.component";
+import {MainComponent} from '../layout/main/main.component';
+import {SimpleComponent} from '../layout/simple/simple.component';
+import {PageComponent} from '../layout/page/page.component';
 
 export const routes = [
   {
@@ -16,8 +16,9 @@ export const routes = [
     path: 'main',
     component: SimpleComponent,
     children: [
-      {path: '', redirectTo: '/main/home', pathMatch: 'full'},
-      {path: 'home', loadChildren: './home/home.module#HomeModule'}
+      {path: '', redirectTo: '/main/project', pathMatch: 'full'},
+      {path: 'home', loadChildren: './home/home.module#HomeModule'},
+      {path: 'project', loadChildren: './project/project.module#ProjectModule'}
     ]
   },
   {
@@ -29,5 +30,5 @@ export const routes = [
     ]
   },
   // 路由指向找不到时，指向这里
-  {path: '**', redirectTo: '/main/home'}
+  {path: '**', redirectTo: '/main/project'}
 ];
