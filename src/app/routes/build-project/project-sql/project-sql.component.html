@@ -1,0 +1,12 @@
+<!--引导语 start-->
+<div class="page-msg-red m">
+  <p class="title">{{guideLang.tipTitle}}</p>
+  <ul>
+    <li *ngFor="let item of guideLang.message.proInfo">{{item}}</li>
+  </ul>
+</div>
+<!--引导语 end-->
+
+<!--sql start-->
+<ngx-monaco-editor  class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+<!--sql end-->

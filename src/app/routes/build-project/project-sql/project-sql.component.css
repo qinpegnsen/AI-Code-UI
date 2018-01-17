@@ -1,0 +1,10 @@
+:host /deep/ .monaco-editor{
+  height:500px !important;
+}
+:host /deep/ .monaco-editor .overflow-guard{
+  height:500px !important;
+  overflow-y:auto;
+}
+.my-code-editor{
+ height: calc(500px);
+}

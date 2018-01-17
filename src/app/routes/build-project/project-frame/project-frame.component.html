@@ -1,0 +1,26 @@
+<!--引导语 start-->
+<div class="page-msg-red m">
+  <p class="title">{{guideLang.tipTitle}}</p>
+  <ul>
+    <li *ngFor="let item of guideLang.message.proFrames">{{item}}</li>
+  </ul>
+</div>
+<!--引导语 end-->
+
+<!--技术框架 start-->
+<div>
+  <nz-checkbox-group [(ngModel)]="frames"></nz-checkbox-group>
+</div>
+<!--技术框架 end-->
+
+<!--操作按钮 start-->
+<div nz-row class="text-center p-20 bt">
+  <button nz-button [nzSize]="'large'" class="btn-blue" (click)="skipTo()">
+    <span>上一步</span>
+  </button>
+  <button nz-button [nzSize]="'large'" class="thc-btn-w"
+          (click)="nextStep($event)">
+    <span>下一步</span>
+  </button>
+</div>
+<!--操作按钮 end-->

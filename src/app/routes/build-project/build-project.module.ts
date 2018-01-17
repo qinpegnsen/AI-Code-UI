@@ -7,6 +7,7 @@ import { ProjectRepositoryComponent } from './project-repository/project-reposit
 import { ProjectSqlComponent } from './project-sql/project-sql.component';
 import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
+import {BuildProjectService} from "./build-project.service";
 
 const routes: Routes = [
   {path: '', redirectTo: 'proSteps'},
@@ -24,6 +25,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [ProjectStepsComponent, ProjectInfoComponent, ProjectFrameComponent, ProjectRepositoryComponent, ProjectSqlComponent]
+  declarations: [ProjectStepsComponent, ProjectInfoComponent, ProjectFrameComponent, ProjectRepositoryComponent, ProjectSqlComponent],
+  providers:[BuildProjectService]
 })
 export class BuildProjectModule { }
