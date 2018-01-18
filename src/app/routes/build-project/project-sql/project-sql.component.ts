@@ -65,7 +65,6 @@ export class ProjectSqlComponent implements OnInit {
     };
     $.when(me.buildProjectService.projectInit(data)).always(data => {
       me._loading = false;//解除锁屏
-      console.log("█ data ►►►",  data);
       if (true) {
         me.buildProjectService.routerSkip(2);
       }

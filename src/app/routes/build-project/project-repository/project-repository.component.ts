@@ -55,7 +55,6 @@ export class ProjectRepositoryComponent implements OnInit {
    */
   nextStep($event,value){
     $event.preventDefault();
-   console.log("█ value ►►►",  value);
     $.when(this.buildProjectService.buildRepository(value)).always(data => {
       this._loading = false;//解除锁屏
       if (data) {

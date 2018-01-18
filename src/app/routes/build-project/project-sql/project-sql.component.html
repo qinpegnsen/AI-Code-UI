@@ -1,5 +1,5 @@
 <!--引导语 start-->
-<div class="page-msg-red m">
+<div class="page-msg-red mt-20">
   <p class="title">{{guideLang.tipTitle}}</p>
   <ul>
     <li *ngFor="let item of guideLang.message.proInfo">{{item}}</li>
@@ -8,7 +8,7 @@
 <!--引导语 end-->
 
 <!--sql start-->
-<ngx-monaco-editor  class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+<ngx-monaco-editor  class="my-code-editor mt-20 mb-20" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
 <!--sql end-->
 
 <!--操作按钮 start-->
@@ -18,7 +18,7 @@
   </button>
   <button nz-button [nzSize]="'large'" class="thc-btn-w"
           (click)="nextStep($event)">
-    <span>下一步</span>
+    <span>保存并进入下一步</span>
   </button>
 </div>
 <!--操作按钮 end-->

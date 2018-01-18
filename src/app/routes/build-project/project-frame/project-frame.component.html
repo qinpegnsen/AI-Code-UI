@@ -1,5 +1,5 @@
 <!--引导语 start-->
-<div class="page-msg-red m">
+<div class="page-msg-red mt-20">
   <p class="title">{{guideLang.tipTitle}}</p>
   <ul>
     <li *ngFor="let item of guideLang.message.proFrames">{{item}}</li>
@@ -8,7 +8,7 @@
 <!--引导语 end-->
 
 <!--技术框架 start-->
-<div>
+<div class="mt-20 mb-20">
   <nz-checkbox-group [(ngModel)]="frames"></nz-checkbox-group>
 </div>
 <!--技术框架 end-->
@@ -20,7 +20,7 @@
   </button>
   <button nz-button [nzSize]="'large'" class="thc-btn-w"
           (click)="nextStep($event)">
-    <span>下一步</span>
+    <span>保存并进入下一步</span>
   </button>
 </div>
 <!--操作按钮 end-->

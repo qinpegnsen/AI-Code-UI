@@ -1,5 +1,5 @@
 <!--引导语 start-->
-<div class="page-msg-red m">
+<div class="page-msg-red mt-20">
   <p class="title">{{guideLang.tipTitle}}</p>
   <ul>
     <li *ngFor="let item of guideLang.message.proInfo">{{item}}</li>
@@ -16,7 +16,7 @@
         <label nz-form-item-required>项目名</label>
       </div>
       <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('name')" nzHasFeedback>
-        <nz-input formControlName="name" [nzPlaceHolder]="'请填写项目名'" [nzType]="'text'" [nzSize]="'large'">
+        <nz-input formControlName="name" maxlength="50" [nzPlaceHolder]="'请填写项目名'" [nzType]="'text'" [nzSize]="'large'">
         </nz-input>
         <div nz-form-explain *ngIf="getFormControl('name').dirty&&getFormControl('name').hasError('required')">
           请填写项目名！
@@ -122,7 +122,7 @@
     <div nz-row class="text-center p-20 bt">
       <button nz-button [nzType]="'default'" [nzSize]="'large'" class="thc-btn-w"
               (click)="submitRegisterForm($event,validateForm.value)">
-        <span>下一步</span>
+        <span>保存并进入下一步</span>
       </button>
     </div>
   </form>

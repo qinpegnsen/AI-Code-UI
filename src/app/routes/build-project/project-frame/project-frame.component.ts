@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProjectStepsComponent} from "../project-steps/project-steps.component";
 import {Setting} from "../../../public/setting/setting";
 import {BuildProjectService} from "../build-project.service";
+import {NzNotificationService} from "ng-zorro-antd";
 declare var $: any;
 @Component({
   selector: 'app-project-frame',
@@ -16,6 +17,7 @@ export class ProjectFrameComponent implements OnInit {
   selectFramework: any=new Array();           //选择的技术框架数据集合
 
   constructor(public steps:ProjectStepsComponent,
+              public _notification:NzNotificationService,
               public buildProjectService:BuildProjectService) {
     this.steps.current = 2;//添加项目的进度条
   }
@@ -69,16 +71,20 @@ export class ProjectFrameComponent implements OnInit {
   nextStep($event){
     this.getFrameworkSelect();
     $event.preventDefault();
-    let data={
-      projectCode:sessionStorage.getItem('projectCode'),
-      frameworkCode:this.selectFramework.join(',')
-    };
-    $.when(this.buildProjectService.linkFrames(data)).always(data => {
-      this._loading = false;//解除锁屏
-      if (data) {
-        this.buildProjectService.routerSkip(3);
-      }
-    })
+    if(this.selectFramework==0){
+      this._notification.info('小提示','请至少选择一红技术框架')
+    }else{
+      let data={
+        projectCode:sessionStorage.getItem('projectCode'),
+        frameworkCode:this.selectFramework.join(',')
+      };
+      $.when(this.buildProjectService.linkFrames(data)).always(data => {
+        this._loading = false;//解除锁屏
+        if (data) {
+          this.buildProjectService.routerSkip(3);
+        }
+      })
+    }
   }
 
   /**
