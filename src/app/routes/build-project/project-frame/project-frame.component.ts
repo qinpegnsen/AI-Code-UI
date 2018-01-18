@@ -10,11 +10,13 @@ declare var $: any;
 })
 export class ProjectFrameComponent implements OnInit {
 
-  guideLang: any = Setting.PAGEMSG;                  //引导语
+  guideLang: any = Setting.PAGEMSG;           //引导语
   _loading: boolean = false;                 //查询时锁屏,默认关闭
-  frames: any=new Array();                    //技术框架
+  frames: any=new Array();                    //所有的技术框架
+  selectFramework: any=new Array();           //选择的技术框架数据集合
 
-  constructor(public steps:ProjectStepsComponent,public buildProjectService:BuildProjectService) {
+  constructor(public steps:ProjectStepsComponent,
+              public buildProjectService:BuildProjectService) {
     this.steps.current = 2;//添加项目的进度条
   }
 
@@ -55,27 +57,39 @@ export class ProjectFrameComponent implements OnInit {
   }
 
   /**
+   * 跳转页面
+   */
+  skipTo() {
+    this.buildProjectService.routerSkip(1);
+  }
+
+  /**
    * 提交表单
    */
   nextStep($event){
+    this.getFrameworkSelect();
     $event.preventDefault();
     let data={
-      name:'',
-      description:''
-    }
-    $.when(this.buildProjectService.framesList(data)).always(data => {
+      projectCode:sessionStorage.getItem('projectCode'),
+      frameworkCode:this.selectFramework.join(',')
+    };
+    $.when(this.buildProjectService.linkFrames(data)).always(data => {
       this._loading = false;//解除锁屏
       if (data) {
-        this.resetData(data);
+        this.buildProjectService.routerSkip(3);
       }
     })
   }
 
   /**
-   * 跳转页面
+   * 获取所选择的技术框架的编码
    */
-  skipTo() {
-    this.buildProjectService.routerSkip(0);
+  getFrameworkSelect(){
+    this.selectFramework=[];
+    for(let i=0;i<this.frames.length;i++){
+      if(this.frames[i].checked){
+        this.selectFramework.push(this.frames[i].label)
+      }
+    }
   }
-
 }

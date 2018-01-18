@@ -41,9 +41,9 @@ export class ProjectInfoComponent implements OnInit {
    */
   loadProInfo() {
     let me = this;
-    if(me.buildProjectService.projectCode){
+    if(sessionStorage.getItem('projectCode')){
       let data={
-        code:me.buildProjectService.projectCode
+        code:sessionStorage.getItem('projectCode')
       };
       $.when(me.buildProjectService.loadProject(data)).done(data => {
         this.validateForm = this.fb.group({
@@ -81,7 +81,7 @@ export class ProjectInfoComponent implements OnInit {
     let me = this;
     $.when(me.buildProjectService.buildProject(value)).done(data => {
       if(data){
-        me.buildProjectService.projectCode=data.code;
+        sessionStorage.setItem('projectCode',data.code);
         me.buildProjectService.routerSkip(1);
       }
     })

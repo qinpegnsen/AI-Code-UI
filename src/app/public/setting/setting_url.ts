@@ -30,7 +30,36 @@ export class SettingUrl {
       list: '/framework/list',//（get）查询信息集合 按照时间顺序倒叙排序
       load: '/framework/load',//（get）查询一个详情信息
       modify: '/framework/modify',//（post）修改
-    }
+    },
+    /**
+     * 项目框架技术关联控制器
+     */
+    projectFramworkCtrl: {
+      add: '/project/framwork/add',//（post）添加项目技术
+      delete: '/project/framwork/delete',//（delete）删除
+      list: '/project/framwork/list',//（get）查询信息集合 按照时间顺序倒叙排序
+      load: '/project/framwork/load',//（get）查询一个详情信息
+    },
+    /**
+     * 代码仓库账户管理控制器
+     */
+    projectRepositoryAccountCtrl: {
+      build: '/project/repository/build',//（post）创建账户
+      delete: '/project/repository/delete',//（delete）删除
+      list: '/project/repository/list',//（get）查询信息集合 按照时间顺序倒叙排序
+      load: '/project/repository/load',//（get）查询一个详情信息
+      modify: '/project/repository/modify',//（put）修改
+    },
+    /**
+     * 项目sql管理控制器
+     */
+    projectSqlCtrl: {
+      build: '/project/sql/build',//（post）创建项目sql
+      delete: '/project/sql/delete',//（delete）删除项目sql
+      list: '/project/sql/list',//（get）查询sql信息集合 按照时间顺序倒叙排序
+      load: '/project/sql/load',//（get）查询一个sql详情信息
+      modify: '/project/sql/modify',//（post）修改sql
+    },
   };
   // 路由链接信息
   static ROUTERLINK: any = {
