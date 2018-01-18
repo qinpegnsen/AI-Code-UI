@@ -58,7 +58,7 @@ export class ProjectRepositoryComponent implements OnInit {
         me.validateForm = me.fb.group({
           account: [data.account, [Validators.required]],
           password: [data.password, [Validators.required]],
-          type: [data.type],
+          type: [data['type']],
           home: [data.home, [Validators.required]],
           description: [data.description, [Validators.required]],
           projectCode: [data.projectCode],
