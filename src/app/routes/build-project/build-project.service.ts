@@ -158,30 +158,6 @@ export class BuildProjectService {
   }
 
   /**
-   * 创建账户
-   * @param requestDate
-   * @param callback
-   */
-  buildRepository(requestDate: any) {
-    let me = this, defer = $.Deferred(); //封装异步请求结果
-    AjaxService.post({
-      url: SettingUrl.URL.projectRepositoryAccountCtrl.build,
-      data: requestDate,
-      success: (res) => {
-        if (res.success) {
-          defer.resolve(res.data);
-        } else {
-          me._notification.error(`出错了`, res.info)
-        }
-      },
-      error: () => {
-        me._notification.error(`出错了`, '失败，请稍后重试')
-      }
-    });
-    return defer.promise();
-  }
-
-  /**
    * 执行脚本
    * @param requestDate
    * @param callback
@@ -290,6 +266,54 @@ export class BuildProjectService {
     let me = this, defer = $.Deferred(); //封装异步请求结果
     AjaxService.post({
       url: SettingUrl.URL.frameworksCtrl.list,
+      data: requestDate,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
+  /**
+   * 创建账户
+   * @param requestDate
+   * @param callback
+   */
+  buildRepository(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.post({
+      url: SettingUrl.URL.projectRepositoryAccountCtrl.build,
+      data: requestDate,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
+  /**
+   * load账户
+   * @param requestDate
+   * @param callback
+   */
+  loadRepository(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.projectRepositoryAccountCtrl.load,
       data: requestDate,
       success: (res) => {
         if (res.success) {

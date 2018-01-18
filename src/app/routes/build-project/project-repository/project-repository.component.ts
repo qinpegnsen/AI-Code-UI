@@ -3,6 +3,7 @@ import {ProjectStepsComponent} from "../project-steps/project-steps.component";
 import {Setting} from "../../../public/setting/setting";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BuildProjectService} from "../build-project.service";
+import {ActivatedRoute} from "@angular/router";
 declare var $: any;
 
 @Component({
@@ -15,15 +16,17 @@ export class ProjectRepositoryComponent implements OnInit {
   guideLang: any = Setting.PAGEMSG;                  //引导语
   validateForm: FormGroup;
   _loading: boolean = false;                 //查询时锁屏,默认关闭
+  type: string;                               //路由携带的参数
 
   constructor(public fb: FormBuilder,
               public buildProjectService:BuildProjectService,
+              public routeInfo: ActivatedRoute,
               public steps:ProjectStepsComponent) {
     //企业注册表单项校验
     this.validateForm = this.fb.group({
       account: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      type: ['Mysql',[Validators.required]],
+      type: ['Git'],
       home: ['', [Validators.required]],
       description: ['', [Validators.required]],
       projectCode: [''],
@@ -32,6 +35,36 @@ export class ProjectRepositoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    let me = this;
+    me.type = me.routeInfo.snapshot.queryParams['type'];
+    if (me.type == 'edit') {
+      me.loadRepository();
+    }
+  }
+
+  /**
+   * 编辑时load仓库信息
+   * @param event
+   * @param curPage
+   */
+  public loadRepository() {
+    let me = this;
+    if(sessionStorage.getItem('repositoryCode')){
+      let data={
+        code:sessionStorage.getItem('repositoryCode')
+      };
+      $.when(me.buildProjectService.loadRepository(data)).done(data => {
+        console.log("█ data ►►►",  data);
+        me.validateForm = me.fb.group({
+          account: [data.account, [Validators.required]],
+          password: [data.password, [Validators.required]],
+          type: [data.type],
+          home: [data.home, [Validators.required]],
+          description: [data.description, [Validators.required]],
+          projectCode: [data.projectCode],
+        });
+      })
+    }
   }
 
   /**
@@ -58,6 +91,7 @@ export class ProjectRepositoryComponent implements OnInit {
     $.when(this.buildProjectService.buildRepository(value)).always(data => {
       this._loading = false;//解除锁屏
       if (data) {
+        sessionStorage.setItem('repositoryCode',data.code);
         console.log("█ data ►►►",  data);
       }
     })
