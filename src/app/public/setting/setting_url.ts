@@ -58,7 +58,7 @@ export class SettingUrl {
       delete: '/project/sql/delete',//（delete）删除项目sql
       list: '/project/sql/list',//（get）查询sql信息集合 按照时间顺序倒叙排序
       load: '/project/sql/load',//（get）查询一个sql详情信息
-      modify: '/project/sql/modify',//（post）修改sql
+      modify: '/project/sql/modify',//（put）修改sql
     },
   };
   // 路由链接信息

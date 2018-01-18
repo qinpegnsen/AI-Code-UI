@@ -3,6 +3,7 @@ import {ProjectStepsComponent} from "../project-steps/project-steps.component";
 import {Setting} from "../../../public/setting/setting";
 import {BuildProjectService} from "../build-project.service";
 import {NzNotificationService} from "ng-zorro-antd";
+import {ActivatedRoute} from "@angular/router";
 declare var $: any;
 @Component({
   selector: 'app-project-frame',
@@ -15,15 +16,22 @@ export class ProjectFrameComponent implements OnInit {
   _loading: boolean = false;                 //查询时锁屏,默认关闭
   frames: any=new Array();                    //所有的技术框架
   selectFramework: any=new Array();           //选择的技术框架数据集合
+  type: string;                               //路由携带的参数
 
   constructor(public steps:ProjectStepsComponent,
               public _notification:NzNotificationService,
+              public routeInfo: ActivatedRoute,
               public buildProjectService:BuildProjectService) {
     this.steps.current = 2;//添加项目的进度条
   }
 
   ngOnInit() {
+    let me = this;
+    me.type = me.routeInfo.snapshot.queryParams['type'];
     this.queryFramesList();
+    if (me.type == 'edit') {
+      me.loadSelectFrames();
+    }
   }
 
   /**
@@ -46,6 +54,29 @@ export class ProjectFrameComponent implements OnInit {
   }
 
   /**
+   * 编辑时查询已经选择的框架列表
+   * @param event
+   * @param curPage
+   */
+  public loadSelectFrames() {
+    let me = this;
+    if(sessionStorage.getItem('projectCode')){
+      let data={
+        code:sessionStorage.getItem('projectCode')
+      };
+      $.when(me.buildProjectService.loadProject(data)).done(data => {
+        for(let i=0;i<me.frames.length;i++){
+          for(let j=0;j<data.projectFramworkList.length;j++){
+            if(me.frames[i]['label']==data.projectFramworkList[j]['frameworkCode']){
+              me.frames[i]['checked']=true;
+            }
+          }
+        }
+      })
+    }
+  }
+
+  /**
    * 对数据进行重组
    * @param data
    */
@@ -61,8 +92,8 @@ export class ProjectFrameComponent implements OnInit {
   /**
    * 跳转页面
    */
-  skipTo() {
-    this.buildProjectService.routerSkip(1);
+  skipTo(step,type) {
+    this.buildProjectService.routerSkip(step,type);
   }
 
   /**
@@ -71,19 +102,42 @@ export class ProjectFrameComponent implements OnInit {
   nextStep($event){
     this.getFrameworkSelect();
     $event.preventDefault();
-    if(this.selectFramework==0){
-      this._notification.info('小提示','请至少选择一红技术框架')
-    }else{
-      let data={
-        projectCode:sessionStorage.getItem('projectCode'),
-        frameworkCode:this.selectFramework.join(',')
-      };
-      $.when(this.buildProjectService.linkFrames(data)).always(data => {
-        this._loading = false;//解除锁屏
-        if (data) {
-          this.buildProjectService.routerSkip(3);
-        }
-      })
+    let me=this;
+    switch (me.type){
+      case 'add':{
+        if(me.selectFramework==0){
+          me._notification.info('小提示','请至少选择一红技术框架')
+        }else{
+          let data={
+            projectCode:sessionStorage.getItem('projectCode'),
+            frameworkCode:me.selectFramework.join(',')
+          };
+          $.when(me.buildProjectService.linkFrames(data)).always(data => {
+            me._loading = false;//解除锁屏
+            if (data) {
+              me.buildProjectService.routerSkip(3,'add');
+            }
+          })
+        };
+        break;
+      }
+      case 'edit':{
+        if(me.selectFramework==0){
+          me._notification.info('小提示','请至少选择一红技术框架')
+        }else{
+          let data={
+            projectCode:sessionStorage.getItem('projectCode'),
+            frameworkCode:me.selectFramework.join(',')
+          };
+          $.when(me.buildProjectService.modifyFrames(data)).always(data => {
+            me._loading = false;//解除锁屏
+            if (data) {
+              me.buildProjectService.routerSkip(3,'add');
+            }
+          })
+        };
+        break;
+      }
     }
   }
 

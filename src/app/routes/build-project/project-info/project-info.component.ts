@@ -3,6 +3,7 @@ import {Setting} from "../../../public/setting/setting";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BuildProjectService} from "../build-project.service";
 import {ProjectStepsComponent} from "../project-steps/project-steps.component";
+import {ActivatedRoute} from "@angular/router";
 declare var $: any;
 @Component({
   selector: 'app-project-info',
@@ -12,9 +13,11 @@ declare var $: any;
 export class ProjectInfoComponent implements OnInit {
 
   guideLang: any = Setting.PAGEMSG;                  //引导语
+  type: string ;                                     //路由携带的参数
   validateForm: FormGroup;
   constructor(public fb: FormBuilder,
               public buildProjectService:BuildProjectService,
+              public routeInfo: ActivatedRoute,
               public steps:ProjectStepsComponent) {
     //企业注册表单项校验
     this.validateForm = this.fb.group({
@@ -32,11 +35,15 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadProInfo();
+    let me=this;
+    me.type = me.routeInfo.snapshot.queryParams['type'];
+    if(me.type =='edit'){
+      me.loadProInfo();
+    }
   }
 
   /**
-   * 查询企业信息
+   * 查询项目信息
    * @param data
    */
   loadProInfo() {
@@ -46,7 +53,7 @@ export class ProjectInfoComponent implements OnInit {
         code:sessionStorage.getItem('projectCode')
       };
       $.when(me.buildProjectService.loadProject(data)).done(data => {
-        this.validateForm = this.fb.group({
+        me.validateForm = me.fb.group({
           name: [data.name, [Validators.required]],
           englishName: [data.englishName, [Validators.required]],
           databaseType: [data.databaseType],
@@ -76,15 +83,29 @@ export class ProjectInfoComponent implements OnInit {
    * @param value
    */
 
-  submitRegisterForm = ($event, value) => {
+  nextStep = ($event, value) => {
     $event.preventDefault();
     let me = this;
-    $.when(me.buildProjectService.buildProject(value)).done(data => {
-      if(data){
-        sessionStorage.setItem('projectCode',data.code);
-        me.buildProjectService.routerSkip(1);
+    switch (me.type){
+      case 'add':{
+        $.when(me.buildProjectService.buildProject(value)).done(data => {
+          if(data){
+            sessionStorage.setItem('projectCode',data.code);
+            me.buildProjectService.routerSkip(1,'add');
+          }
+        });
+        break;
       }
-    })
+      case 'edit':{
+        value['code']=sessionStorage.getItem('projectCode');
+        $.when(me.buildProjectService.modifyProject(value)).done(data => {
+          if(data){
+            sessionStorage.setItem('projectCode',data.code);
+            me.buildProjectService.routerSkip(1,'add');
+          }
+        });
+        break;
+      }
+    }
   };
-
 }

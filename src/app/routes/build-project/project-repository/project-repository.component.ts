@@ -46,8 +46,8 @@ export class ProjectRepositoryComponent implements OnInit {
   /**
    * 跳转页面
    */
-  skipTo(step) {
-    this.buildProjectService.routerSkip(step);
+  skipTo(step,type) {
+    this.buildProjectService.routerSkip(step,type);
   }
 
   /**

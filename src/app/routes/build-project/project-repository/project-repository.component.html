@@ -28,7 +28,7 @@
         <label nz-form-item-required>密码</label>
       </div>
       <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('password')" nzHasFeedback>
-        <nz-input formControlName="password" [nzPlaceHolder]="'请填写密码'" [nzType]="'text'" [nzSize]="'large'">
+        <nz-input formControlName="password" [nzPlaceHolder]="'请填写密码'" [nzType]="'password'" [nzSize]="'large'">
         </nz-input>
         <div nz-form-explain
              *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">
@@ -43,10 +43,10 @@
 
       <div nz-col [nzSpan]="8" nz-form-control>
         <nz-radio-group formControlName="type">
-          <label nz-radio [nzValue]="'Mysql'">
+          <label nz-radio [nzValue]="'Git'">
             <span>Git</span>
           </label>
-          <label nz-radio [nzValue]="'Oracle'">
+          <label nz-radio [nzValue]="'Svn'">
             <span>Svn</span>
           </label>
         </nz-radio-group>
@@ -87,7 +87,7 @@
       </div>
     </div>
     <div nz-row class="text-center p-20 bt">
-      <button nz-button [nzSize]="'large'" class="btn-blue" (click)="skipTo(2)">
+      <button nz-button [nzSize]="'large'" class="btn-blue" (click)="skipTo(2,'edit')">
         <span>上一步</span>
       </button>
       <button nz-button [nzSize]="'large'" class="thc-btn-w"

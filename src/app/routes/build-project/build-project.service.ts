@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AjaxService} from "../../public/service/ajax.service";
 import {SettingUrl} from "../../public/setting/setting_url";
 import {NzNotificationService} from "ng-zorro-antd";
@@ -8,9 +8,10 @@ declare var $: any;
 @Injectable()
 export class BuildProjectService {
 
-  projectCode:string='';               //存储项目的编码
+  projectCode: string = '';               //存储项目的编码
   constructor(public router: Router,
-              public _notification: NzNotificationService) { }
+              public _notification: NzNotificationService) {
+  }
 
   /**
    * 新建项目
@@ -38,6 +39,79 @@ export class BuildProjectService {
   }
 
   /**
+   * 修改项目
+   * @param requestDate
+   * @param callback
+   */
+  modifyProject(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.put({
+      url: SettingUrl.URL.projectCtrl.modify,
+      data: requestDate,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+          me._notification.success(`成功了`, res.info)
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
+  /**
+   * 加载项目的信息
+   */
+  loadProject(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.projectCtrl.load,
+      data: requestDate,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
+  /**
+   * 修改sql
+   * @param requestDate
+   * @param callback
+   */
+  modifySql(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.put({
+      url: SettingUrl.URL.projectSqlCtrl.modify,
+      data: requestDate,
+      success: (res) => {
+        if (res.success) {
+          me._notification.success(`成功了`, res.info);
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info);
+          defer.reject(res.data);
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
+  /**
    * 创建项目sql
    * @param requestDate
    * @param callback
@@ -46,6 +120,28 @@ export class BuildProjectService {
     let me = this, defer = $.Deferred(); //封装异步请求结果
     AjaxService.post({
       url: SettingUrl.URL.projectSqlCtrl.build,
+      data: requestDate,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
+  /**
+   * 加载项目SQL的信息
+   */
+  loadSql(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.projectSqlCtrl.load,
       data: requestDate,
       success: (res) => {
         if (res.success) {
@@ -136,28 +232,6 @@ export class BuildProjectService {
   }
 
   /**
-   * 加载项目的信息
-   */
-  loadProject(requestDate: any){
-    let me = this, defer = $.Deferred(); //封装异步请求结果
-    AjaxService.get({
-      url: SettingUrl.URL.projectCtrl.load,
-      data: requestDate,
-      success: (res) => {
-        if (res.success) {
-          defer.resolve(res.data);
-        } else {
-          me._notification.error(`出错了`, res.info)
-        }
-      },
-      error: () => {
-        me._notification.error(`出错了`, '失败，请稍后重试')
-      }
-    });
-    return defer.promise();
-  }
-
-  /**
    * 关联技术框架
    * @param requestDate
    * @param callback
@@ -183,7 +257,32 @@ export class BuildProjectService {
   }
 
   /**
-   * 增加技术框架
+   * 关联技术框架
+   * @param requestDate
+   * @param callback
+   */
+  modifyFrames(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.post({
+      url: SettingUrl.URL.projectFramworkCtrl.add,
+      data: requestDate,
+      success: (res) => {
+        if (res.success) {
+          me._notification.success(`成功了`, res.info);
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
+  /**
+   * 新增技术框架
    * @param requestDate
    * @param callback
    */
@@ -210,19 +309,19 @@ export class BuildProjectService {
    * 根据操作步骤跳到相应页面
    * @param current （当前步骤）
    */
-  routerSkip(current) {
+  routerSkip(current, type) {
     switch (current) {
       case 0 :
-        this.router.navigate([SettingUrl.ROUTERLINK.store.proInfo], {replaceUrl: true});
+        this.router.navigate([SettingUrl.ROUTERLINK.store.proInfo], {'queryParams': {'type': type}});
         break;
       case 1 :
-        this.router.navigate([SettingUrl.ROUTERLINK.store.proSql], {replaceUrl: true});
+        this.router.navigate([SettingUrl.ROUTERLINK.store.proSql], {'queryParams': {'type': type}});
         break;
       case 2 :
-        this.router.navigate([SettingUrl.ROUTERLINK.store.proFrames], {replaceUrl: true});
+        this.router.navigate([SettingUrl.ROUTERLINK.store.proFrames], {'queryParams': {'type': type}});
         break;
       case 3 :
-        this.router.navigate([SettingUrl.ROUTERLINK.store.proRepository], {replaceUrl: true});
+        this.router.navigate([SettingUrl.ROUTERLINK.store.proRepository], {'queryParams': {'type': type}});
         break;
     }
   }
