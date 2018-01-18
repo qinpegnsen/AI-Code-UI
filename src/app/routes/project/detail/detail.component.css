@@ -1,0 +1,30 @@
+#detail{
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+#detail>div{
+    margin-bottom: 20px;
+}
+#detail .info_title{
+    font-size: 18px;
+    font-weight: bold;
+    background: #d9d9d9;
+    border-radius: 5px;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+}
+#detail .ant-row{
+    padding: 5px 15px;
+}
+#detail ngx-monaco-editor{
+    width: 100%;
+    height: 400px;
+    margin-top: 15px;
+}
+#detail .info_title nz-tag{
+    float: right;
+}
+.creat_code{
+    text-align: center
+}
