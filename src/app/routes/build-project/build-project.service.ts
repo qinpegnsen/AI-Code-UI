@@ -336,16 +336,16 @@ export class BuildProjectService {
   routerSkip(current, type) {
     switch (current) {
       case 0 :
-        this.router.navigate([SettingUrl.ROUTERLINK.store.proInfo], {'queryParams': {'type': type}});
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proInfo], {'queryParams': {'type': type}});
         break;
       case 1 :
-        this.router.navigate([SettingUrl.ROUTERLINK.store.proSql], {'queryParams': {'type': type}});
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proSql], {'queryParams': {'type': type}});
         break;
       case 2 :
-        this.router.navigate([SettingUrl.ROUTERLINK.store.proFrames], {'queryParams': {'type': type}});
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proFrames], {'queryParams': {'type': type}});
         break;
       case 3 :
-        this.router.navigate([SettingUrl.ROUTERLINK.store.proRepository], {'queryParams': {'type': type}});
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proRepository], {'queryParams': {'type': type}});
         break;
     }
   }
