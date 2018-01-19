@@ -41,7 +41,7 @@
         <label nz-form-item-required>数据库类型</label>
       </div>
       <div nz-col [nzSpan]="8" nz-form-control>
-        <nz-radio-group formControlName="databaseType">
+        <nz-radio-group  [formControl]="validateForm.controls['databaseType']">
           <label nz-radio [nzValue]="'Mysql'">
             <span>Mysql</span>
           </label>

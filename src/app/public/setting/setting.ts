@@ -15,16 +15,16 @@ export class Setting {
     tipTitle: "操作提示",
     message: {
       proInfo: [
-       '添加一些项目的基本的信息'
+       '添加一些项目的基本的信息，带*号的是必填项'
       ],
       proFrames:[
-        '选择技术框架'
+        '选择技术框架，带*号的是必填项'
       ],
       proSql:[
-        '添加sql信息'
+        '添加sql信息，带*号的是必填项'
       ],
       proRepository:[
-        '添加仓库信息'
+        '添加仓库信息，带*号的是必填项'
       ]
     }
   };

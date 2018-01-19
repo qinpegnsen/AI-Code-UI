@@ -1,7 +1,7 @@
 <div class="reg bg-white p-20">
   <!--步骤 start-->
   <div class="step">
-    <nz-steps [(nzCurrent)]="current" class="lg thc">
+    <nz-steps [(nzCurrent)]="current" [nzStatus]="'process'" class="lg thc">
       <nz-step [nzTitle]="'项目信息'"></nz-step>
       <nz-step [nzTitle]="'sql信息'"></nz-step>
       <nz-step [nzTitle]="'技术选定'"></nz-step>

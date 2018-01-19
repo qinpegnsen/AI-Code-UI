@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../project.service';
 import { Router } from '@angular/router';
 import { Page } from './../../../public/util/page';
+import {SettingUrl} from "../../../public/setting/setting_url";
 declare var $: any;
 
 @Component({
@@ -34,7 +35,7 @@ export class ListComponent implements OnInit {
    * @param param0 项目编号
    */
   goDetail({code: code}) {
-    this.router.navigate(['/main/project/detail'], {queryParams: {code: code}});
+    this.router.navigate([SettingUrl.ROUTERLINK.project.detail], {queryParams: {code: code}});
   }
 
 }

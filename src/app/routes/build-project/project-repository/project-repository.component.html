@@ -42,7 +42,7 @@
       </div>
 
       <div nz-col [nzSpan]="8" nz-form-control>
-        <nz-radio-group formControlName="type">
+        <nz-radio-group  [formControl]="validateForm.controls['type']">
           <label nz-radio [nzValue]="'Git'">
             <span>Git</span>
           </label>

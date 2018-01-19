@@ -3,7 +3,8 @@ import {ProjectStepsComponent} from "../project-steps/project-steps.component";
 import {Setting} from "../../../public/setting/setting";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BuildProjectService} from "../build-project.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {SettingUrl} from "../../../public/setting/setting_url";
 declare var $: any;
 
 @Component({
@@ -21,6 +22,7 @@ export class ProjectRepositoryComponent implements OnInit {
   constructor(public fb: FormBuilder,
               public buildProjectService:BuildProjectService,
               public routeInfo: ActivatedRoute,
+              public router: Router,
               public steps:ProjectStepsComponent) {
     //企业注册表单项校验
     this.validateForm = this.fb.group({
@@ -91,8 +93,9 @@ export class ProjectRepositoryComponent implements OnInit {
     $.when(this.buildProjectService.buildRepository(value)).always(data => {
       this._loading = false;//解除锁屏
       if (data) {
-        sessionStorage.setItem('repositoryCode',data.code);
         console.log("█ data ►►►",  data);
+        sessionStorage.setItem('repositoryCode',data.code);
+        this.router.navigate([SettingUrl.ROUTERLINK.project.detail], {queryParams: {code: sessionStorage.getItem('projectCode')}});
       }
     })
   }

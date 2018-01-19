@@ -69,5 +69,9 @@ export class SettingUrl {
       proRepository: "/main/buildPro/proSteps/proRepository", //填写项目仓库页面
       proSql: "/main/buildPro/proSteps/proSql", //填写项目sql页面
     },
+    project:{
+      list:"/main/project",//项目的列表
+      detail:"/main/project/detail",//项目的详情
+    }
   }
 }
