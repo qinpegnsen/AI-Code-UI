@@ -45,7 +45,6 @@ export class ProjectFrameComponent implements OnInit {
     };
     $.when(me.buildProjectService.loadProject(data)).done(data => {
       me.buildProInfo=data;
-      console.log("█ data ►►►",  data);
       if(!data.projectSqlList.length){
         me.skipTo(1,'add')
       }

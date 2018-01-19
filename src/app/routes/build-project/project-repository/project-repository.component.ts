@@ -18,6 +18,7 @@ export class ProjectRepositoryComponent implements OnInit {
   validateForm: FormGroup;
   _loading: boolean = false;                 //查询时锁屏,默认关闭
   type: string;                               //路由携带的参数
+  buildProInfo:any;                           //当前项目的信息
 
   constructor(public fb: FormBuilder,
               public buildProjectService:BuildProjectService,
@@ -54,6 +55,8 @@ export class ProjectRepositoryComponent implements OnInit {
       code:sessionStorage.getItem('projectCode')
     };
     $.when(me.buildProjectService.loadProject(data)).done(data => {
+      me.buildProInfo=data;
+      console.log("█  ►►►", me.buildProInfo );
       if(!data.projectFramworkList.length){
         me.skipTo(2,'add')
       }
@@ -107,14 +110,34 @@ export class ProjectRepositoryComponent implements OnInit {
    */
   nextStep($event,value){
     $event.preventDefault();
-    value['projectCode']=sessionStorage.getItem('projectCode')
-    $.when(this.buildProjectService.buildRepository(value)).always(data => {
-      this._loading = false;//解除锁屏
-      if (data) {
-        sessionStorage.setItem('repositoryCode',data.code);
-        this.router.navigate([SettingUrl.ROUTERLINK.project.detail], {queryParams: {code: sessionStorage.getItem('projectCode')}});
+    let me=this;
+    switch (me.type){
+      case 'add':{
+        value['projectCode']=sessionStorage.getItem('projectCode');
+        $.when(me.buildProjectService.buildRepository(value)).always(data => {
+          me._loading = false;//解除锁屏
+          if (data) {
+            sessionStorage.setItem('repositoryCode',data.code);
+            me.router.navigate([SettingUrl.ROUTERLINK.project.detail], {queryParams: {code: sessionStorage.getItem('projectCode')}});
+          }
+        });
+        break;
       }
-    })
+      case 'edit':{
+        value['projectCode']=sessionStorage.getItem('projectCode');
+        value['code']=me.buildProInfo.projectRepositoryAccountList[0].code;//版本库的编码
+        value['state']=me.buildProInfo.projectRepositoryAccountList[0].state;//版本库状态
+        $.when(me.buildProjectService.modifyRepository(value)).always(data => {
+          me._loading = false;//解除锁屏
+          if (data) {
+            sessionStorage.setItem('repositoryCode',data.code);
+            me.router.navigate([SettingUrl.ROUTERLINK.project.detail], {queryParams: {code: sessionStorage.getItem('projectCode')}});
+          }
+        });
+        break;
+      }
+    }
+
   }
 
 }

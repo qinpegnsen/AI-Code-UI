@@ -282,14 +282,39 @@ export class BuildProjectService {
   }
 
   /**
-   * 创建账户
+ * 创建账户
+ * @param requestDate
+ * @param callback
+ */
+buildRepository(requestDate: any) {
+  let me = this, defer = $.Deferred(); //封装异步请求结果
+  AjaxService.post({
+    url: SettingUrl.URL.projectRepositoryAccountCtrl.build,
+    data: requestDate,
+    success: (res) => {
+      if (res.success) {
+        me._notification.success(`成功了`, res.info);
+        defer.resolve(res.data);
+      } else {
+        me._notification.error(`出错了`, res.info)
+      }
+    },
+    error: () => {
+      me._notification.error(`出错了`, '失败，请稍后重试')
+    }
+  });
+  return defer.promise();
+}
+
+  /**
+   * 修改账户
    * @param requestDate
    * @param callback
    */
-  buildRepository(requestDate: any) {
+  modifyRepository(requestDate: any) {
     let me = this, defer = $.Deferred(); //封装异步请求结果
-    AjaxService.post({
-      url: SettingUrl.URL.projectRepositoryAccountCtrl.build,
+    AjaxService.put({
+      url: SettingUrl.URL.projectRepositoryAccountCtrl.modify,
       data: requestDate,
       success: (res) => {
         if (res.success) {
