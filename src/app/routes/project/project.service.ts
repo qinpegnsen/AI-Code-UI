@@ -14,11 +14,34 @@ export class ProjectService {
      * @param curPage   当前页
      * @param pageSize  分页大小
      */
-    getProjectList(curPage: number = 1, pageSize: number = 10) {
+    getProjectList(curPage: number = 1, pageSize: number = 12) {
         const me = this, defer = $.Deferred();  // 封装异步请求结果
-        AjaxService.post({
+        AjaxService.get({
             url: SettingUrl.URL.projectCtrl.list,
             data: { curPage: curPage, pageSize: pageSize },
+            success: (res) => {
+                if (res.success) {
+                    defer.resolve(res.data);
+                } else {
+                    me._notification.error(`出错了`, res.info);
+                }
+            },
+            error: () => {
+                me._notification.error(`出错了`, '失败，请稍后重试');
+            }
+        });
+        return defer.promise();
+    }
+
+    /**
+     * 查询项目详情
+     * @param code 项目编号
+     */
+    getDetail(code: string) {
+        const me = this, defer = $.Deferred();  // 封装异步请求结果
+        AjaxService.get({
+            url: SettingUrl.URL.projectCtrl.load,
+            data: { code: code },
             success: (res) => {
                 if (res.success) {
                     defer.resolve(res.data);
