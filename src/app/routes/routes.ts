@@ -9,7 +9,6 @@ export const routes = [
     children: [
       {path: '', redirectTo: '/store/home', pathMatch: 'full'},
       {path: 'home', loadChildren: './home/home.module#HomeModule'},
-      {path: 'buildPro', loadChildren: './build-project/build-project.module#BuildProjectModule'}
     ]
   },
   {
@@ -18,7 +17,8 @@ export const routes = [
     children: [
       {path: '', redirectTo: '/main/project', pathMatch: 'full'},
       {path: 'home', loadChildren: './home/home.module#HomeModule'},
-      {path: 'project', loadChildren: './project/project.module#ProjectModule'}
+      {path: 'project', loadChildren: './project/project.module#ProjectModule'},
+      {path: 'buildPro', loadChildren: './build-project/build-project.module#BuildProjectModule'}
     ]
   },
   {
