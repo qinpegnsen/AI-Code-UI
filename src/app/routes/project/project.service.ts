@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { AjaxService } from '../../public/service/ajax.service';
 import { SettingUrl } from '../../public/setting/setting_url';
 import { NzNotificationService } from 'ng-zorro-antd';
+import {Router} from "@angular/router";
 
 declare var $: any;
 @Injectable()
 export class ProjectService {
 
-    constructor(public _notification: NzNotificationService) { }
+    constructor(public _notification: NzNotificationService,public router: Router) { }
 
     /**
      * 获取项目列表
@@ -55,4 +56,25 @@ export class ProjectService {
         });
         return defer.promise();
     }
+
+  /**
+   * 根据操作步骤跳到相应页面
+   * @param current （当前步骤）
+   */
+  routerSkip(current, type) {
+    switch (current) {
+      case 0 :
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proInfo], {'queryParams': {'type': type}});
+        break;
+      case 1 :
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proSql], {'queryParams': {'type': type}});
+        break;
+      case 2 :
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proFrames], {'queryParams': {'type': type}});
+        break;
+      case 3 :
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proRepository], {'queryParams': {'type': type}});
+        break;
+    }
+  }
 }

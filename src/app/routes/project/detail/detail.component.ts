@@ -40,19 +40,30 @@ export class DetailComponent implements OnInit {
   ];
 
 
-  constructor(public project: ProjectService, public route: ActivatedRoute, public router: Router) { }
+  constructor(public project: ProjectService,
+              public route: ActivatedRoute,
+              public router: Router) { }
 
   ngOnInit() {
     this.projectCode = this.route.snapshot.queryParams['code'];
     $.when(this.project.getDetail(this.projectCode)).always(data => {
       // this._loading = false;//解除锁屏
       this.projectData = data;
-      console.log(data);
+      console.log("█ this.projectData ►►►",  this.projectData);
     });
   }
 
   goBack() {
     this.router.navigate(['/main/project']);
+  }
+
+  /**
+   * 跳转页面
+   * @param step 跳转到的哪步
+   * @param type 新增还是修改
+   */
+  skipTo(step,type) {
+    this.project.routerSkip(step,type);
   }
 
 }

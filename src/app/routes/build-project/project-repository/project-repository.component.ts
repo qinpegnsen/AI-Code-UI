@@ -39,9 +39,25 @@ export class ProjectRepositoryComponent implements OnInit {
   ngOnInit() {
     let me = this;
     me.type = me.routeInfo.snapshot.queryParams['type'];
+    me.spectPreStep();
     if (me.type == 'edit') {
       me.loadRepository();
     }
+  }
+
+  /**
+   * 检查上一步是否填写，如果没有跳回到上一步
+   */
+  spectPreStep(){
+    let me=this;
+    let data={
+      code:sessionStorage.getItem('projectCode')
+    };
+    $.when(me.buildProjectService.loadProject(data)).done(data => {
+      if(!data.projectFramworkList.length){
+        me.skipTo(2,'add')
+      }
+    });
   }
 
   /**
@@ -80,6 +96,8 @@ export class ProjectRepositoryComponent implements OnInit {
 
   /**
    * 跳转页面
+   * @param step 跳转到的哪步
+   * @param type 新增还是修改
    */
   skipTo(step,type) {
     this.buildProjectService.routerSkip(step,type);

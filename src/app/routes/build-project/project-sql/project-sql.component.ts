@@ -18,6 +18,8 @@ export class ProjectSqlComponent implements OnInit {
   _loading: boolean = false;                        //查询时锁屏,默认关闭
   guideLang: any = Setting.PAGEMSG;                  //引导语
   type: string;                                     //路由携带的参数
+  buildProInfo:any;                                   //当前项目的信息
+
   constructor(public steps: ProjectStepsComponent,
               public routeInfo: ActivatedRoute,
               public buildProjectService: BuildProjectService) {
@@ -27,9 +29,23 @@ export class ProjectSqlComponent implements OnInit {
   ngOnInit() {
     let me = this;
     me.type = me.routeInfo.snapshot.queryParams['type'];
+    me.spectPreStep();
     if (me.type == 'edit') {
       me.loadProSql();
     }
+  }
+
+  /**
+   * 检查上一步是否填写，如果没有跳回到上一步
+   */
+  spectPreStep(){
+    let me=this;
+    let data={
+      code:sessionStorage.getItem('projectCode')
+    };
+    $.when(me.buildProjectService.loadProject(data)).done(data => {
+      me.buildProInfo=data;
+    });
   }
 
   /**
@@ -51,6 +67,8 @@ export class ProjectSqlComponent implements OnInit {
 
   /**
    * 跳转页面
+   * @param step 跳转到的哪步
+   * @param type 新增还是修改
    */
   skipTo(step, type) {
     this.buildProjectService.routerSkip(step, type);
@@ -111,7 +129,8 @@ export class ProjectSqlComponent implements OnInit {
     $.when(me.buildProjectService.projectInit(data)).always(data => {
       me._loading = false;//解除锁屏
       if (true) {
-        me.buildProjectService.routerSkip(2, 'add');
+        let type=me.buildProInfo.projectFramworkList.length?'edit':'add';
+        me.buildProjectService.routerSkip(2,type);
       }
     })
   }

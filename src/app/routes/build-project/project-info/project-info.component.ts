@@ -15,6 +15,8 @@ export class ProjectInfoComponent implements OnInit {
   guideLang: any = Setting.PAGEMSG;                  //引导语
   type: string ;                                     //路由携带的参数
   validateForm: FormGroup;
+  buildProInfo:any;                                   //当前项目的信息
+
   constructor(public fb: FormBuilder,
               public buildProjectService:BuildProjectService,
               public routeInfo: ActivatedRoute,
@@ -37,9 +39,23 @@ export class ProjectInfoComponent implements OnInit {
   ngOnInit() {
     let me=this;
     me.type = me.routeInfo.snapshot.queryParams['type'];
+    me.spectPreStep();
     if(me.type =='edit'){
       me.loadProInfo();
     }
+  }
+
+  /**
+   * 检查上一步是否填写，如果没有跳回到上一步
+   */
+  spectPreStep(){
+    let me=this;
+    let data={
+      code:sessionStorage.getItem('projectCode')
+    };
+    $.when(me.buildProjectService.loadProject(data)).done(data => {
+      me.buildProInfo=data;
+    });
   }
 
   /**
@@ -101,7 +117,8 @@ export class ProjectInfoComponent implements OnInit {
         $.when(me.buildProjectService.modifyProject(value)).done(data => {
           if(data){
             sessionStorage.setItem('projectCode',data.code);
-            me.buildProjectService.routerSkip(1,'add');
+            let type=me.buildProInfo.projectSqlList.length?'edit':'add';
+            me.buildProjectService.routerSkip(1,type);
           }
         });
         break;

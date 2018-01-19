@@ -17,7 +17,7 @@ export class ProjectFrameComponent implements OnInit {
   frames: any=new Array();                    //所有的技术框架
   selectFramework: any=new Array();           //选择的技术框架数据集合
   type: string;                               //路由携带的参数
-
+  buildProInfo:any;                           //当前项目的信息
   constructor(public steps:ProjectStepsComponent,
               public _notification:NzNotificationService,
               public routeInfo: ActivatedRoute,
@@ -28,10 +28,27 @@ export class ProjectFrameComponent implements OnInit {
   ngOnInit() {
     let me = this;
     me.type = me.routeInfo.snapshot.queryParams['type'];
-    this.queryFramesList();
+    me.spectPreStep();
+    me.queryFramesList();
     if (me.type == 'edit') {
       me.loadSelectFrames();
     }
+  }
+
+  /**
+   * 检查上一步是否填写，如果没有跳回到上一步
+   */
+  spectPreStep(){
+    let me=this;
+    let data={
+      code:sessionStorage.getItem('projectCode')
+    };
+    $.when(me.buildProjectService.loadProject(data)).done(data => {
+      me.buildProInfo=data;
+      if(!data.projectSqlList.length){
+        me.skipTo(1,'add')
+      }
+    });
   }
 
   /**
@@ -91,6 +108,8 @@ export class ProjectFrameComponent implements OnInit {
 
   /**
    * 跳转页面
+   * @param step 跳转到的哪步
+   * @param type 新增还是修改
    */
   skipTo(step,type) {
     this.buildProjectService.routerSkip(step,type);
@@ -132,7 +151,8 @@ export class ProjectFrameComponent implements OnInit {
           $.when(me.buildProjectService.modifyFrames(data)).always(data => {
             me._loading = false;//解除锁屏
             if (data) {
-              me.buildProjectService.routerSkip(3,'add');
+              let type=me.buildProInfo.projectRepositoryAccountList.length?'edit':'add';
+              me.buildProjectService.routerSkip(3,type);
             }
           })
         };
