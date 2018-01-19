@@ -19,7 +19,7 @@ export class ProjectRepositoryComponent implements OnInit {
   _loading: boolean = false;                 //查询时锁屏,默认关闭
   type: string;                               //路由携带的参数
   buildProInfo:any;                           //当前项目的信息
-
+  routerProjectCode:String;                           //路由传递过来的项目的编码
   constructor(public fb: FormBuilder,
               public buildProjectService:BuildProjectService,
               public routeInfo: ActivatedRoute,
@@ -27,12 +27,11 @@ export class ProjectRepositoryComponent implements OnInit {
               public steps:ProjectStepsComponent) {
     //企业注册表单项校验
     this.validateForm = this.fb.group({
-      account: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      account: ['', [Validators.required,Validators.maxLength(50)]],
+      password: ['', [Validators.required,Validators.maxLength(50)]],
       type: ['Git'],
-      home: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      projectCode: [''],
+      home: ['', [Validators.required,Validators.maxLength(50)]],
+      description: ['', [Validators.required,Validators.maxLength(50)]],
     });
     this.steps.current = 3;//添加项目的进度条
   }
@@ -40,10 +39,9 @@ export class ProjectRepositoryComponent implements OnInit {
   ngOnInit() {
     let me = this;
     me.type = me.routeInfo.snapshot.queryParams['type'];
+    me.routerProjectCode = me.routeInfo.snapshot.queryParams['projectCode'];
     me.spectPreStep();
-    if (me.type == 'edit') {
-      me.loadRepository();
-    }
+
   }
 
   /**
@@ -51,12 +49,18 @@ export class ProjectRepositoryComponent implements OnInit {
    */
   spectPreStep(){
     let me=this;
+    if(me.routerProjectCode){
+      sessionStorage.setItem('projectCode',JSON.stringify(me.routerProjectCode))
+    }
     let data={
-      code:sessionStorage.getItem('projectCode')
+      code:me.routerProjectCode||sessionStorage.getItem('projectCode')
     };
     $.when(me.buildProjectService.loadProject(data)).done(data => {
       me.buildProInfo=data;
-      console.log("█  ►►►", me.buildProInfo );
+      console.log("█ data ►►►",  data);
+      if (me.type == 'edit') {
+        me.loadRepository();
+      }
       if(!data.projectFramworkList.length){
         me.skipTo(2,'add')
       }
@@ -70,18 +74,17 @@ export class ProjectRepositoryComponent implements OnInit {
    */
   public loadRepository() {
     let me = this;
-    if(sessionStorage.getItem('repositoryCode')){
+    if(me.buildProInfo.projectRepositoryAccountList[0].code||sessionStorage.getItem('repositoryCode')){
       let data={
-        code:sessionStorage.getItem('repositoryCode')
+        code:me.buildProInfo.projectRepositoryAccountList[0].code||sessionStorage.getItem('repositoryCode')
       };
       $.when(me.buildProjectService.loadRepository(data)).done(data => {
         me.validateForm = me.fb.group({
-          account: [data.account, [Validators.required]],
-          password: [data.password, [Validators.required]],
+          account: [data.account, [Validators.required,Validators.maxLength(50)]],
+          password: [data.password, [Validators.required,Validators.maxLength(50)]],
           type: [data['type']],
-          home: [data.home, [Validators.required]],
-          description: [data.description, [Validators.required]],
-          projectCode: [data.projectCode],
+          home: [data.home, [Validators.required,Validators.maxLength(50)]],
+          description: [data.description, [Validators.required,Validators.maxLength(50)]],
         });
       })
     }
@@ -108,13 +111,16 @@ export class ProjectRepositoryComponent implements OnInit {
   /**
    * 完成
    */
-  nextStep($event,value){
+  nextStep($event,validateForm){
     $event.preventDefault();
     let me=this;
+    if(!validateForm.valid){
+      return;
+    }
     switch (me.type){
       case 'add':{
-        value['projectCode']=sessionStorage.getItem('projectCode');
-        $.when(me.buildProjectService.buildRepository(value)).always(data => {
+        validateForm.value['projectCode']=me.routerProjectCode||sessionStorage.getItem('projectCode');
+        $.when(me.buildProjectService.buildRepository(validateForm.value)).always(data => {
           me._loading = false;//解除锁屏
           if (data) {
             sessionStorage.setItem('repositoryCode',data.code);
@@ -124,10 +130,10 @@ export class ProjectRepositoryComponent implements OnInit {
         break;
       }
       case 'edit':{
-        value['projectCode']=sessionStorage.getItem('projectCode');
-        value['code']=me.buildProInfo.projectRepositoryAccountList[0].code;//版本库的编码
-        value['state']=me.buildProInfo.projectRepositoryAccountList[0].state;//版本库状态
-        $.when(me.buildProjectService.modifyRepository(value)).always(data => {
+        validateForm.value['projectCode']=me.routerProjectCode||sessionStorage.getItem('projectCode');
+        validateForm.value['code']=me.buildProInfo.projectRepositoryAccountList[0].code;//版本库的编码
+        validateForm.value['state']=me.buildProInfo.projectRepositoryAccountList[0].state;//版本库状态
+        $.when(me.buildProjectService.modifyRepository(validateForm.value)).always(data => {
           me._loading = false;//解除锁屏
           if (data) {
             sessionStorage.setItem('repositoryCode',data.code);
@@ -137,7 +143,5 @@ export class ProjectRepositoryComponent implements OnInit {
         break;
       }
     }
-
   }
-
 }

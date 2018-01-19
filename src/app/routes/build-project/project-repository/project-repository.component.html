@@ -21,6 +21,9 @@
         <div nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').hasError('required')">
           请填写帐户名！
         </div>
+        <div nz-form-explain *ngIf="getFormControl('account').dirty&&getFormControl('account').hasError('maxlength')">
+          输入的长度不能超过50位！
+        </div>
       </div>
     </div>
     <div nz-form-item nz-row>
@@ -33,6 +36,9 @@
         <div nz-form-explain
              *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('required')">
           请填写密码！
+        </div>
+        <div nz-form-explain *ngIf="getFormControl('password').dirty&&getFormControl('password').hasError('maxlength')">
+          输入的长度不能超过50位！
         </div>
       </div>
     </div>
@@ -63,6 +69,9 @@
              *ngIf="getFormControl('home').dirty&&getFormControl('home').hasError('required')">
           请填写仓库地址！
         </div>
+        <div nz-form-explain *ngIf="getFormControl('home').dirty&&getFormControl('home').hasError('maxlength')">
+          输入的长度不能超过50位！
+        </div>
       </div>
     </div>
     <div nz-form-item nz-row>
@@ -75,6 +84,9 @@
         <div nz-form-explain *ngIf="getFormControl('description').dirty&&getFormControl('description').hasError('required')">
           请填写仓库说明！
         </div>
+        <div nz-form-explain *ngIf="getFormControl('description').dirty&&getFormControl('description').hasError('maxlength')">
+          输入的长度不能超过50位！
+        </div>
       </div>
     </div>
     <div nz-row class="text-center p-20 bt">
@@ -82,7 +94,7 @@
         <span>上一步</span>
       </button>
       <button nz-button [nzSize]="'large'" class="thc-btn-w"
-              (click)="nextStep($event,validateForm.value)">
+              (click)="nextStep($event,validateForm)">
         <span>完成</span>
       </button>
     </div>

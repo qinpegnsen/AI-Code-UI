@@ -61,19 +61,19 @@ export class ProjectService {
    * 根据操作步骤跳到相应页面
    * @param current （当前步骤）
    */
-  routerSkip(current, type) {
+  routerSkip(current, type,projectCode) {
     switch (current) {
       case 0 :
-        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proInfo], {'queryParams': {'type': type}});
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proInfo], {'queryParams': {'type': type,'projectCode':projectCode}});
         break;
       case 1 :
-        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proSql], {'queryParams': {'type': type}});
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proSql], {'queryParams': {'type': type,'projectCode':projectCode}});
         break;
       case 2 :
-        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proFrames], {'queryParams': {'type': type}});
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proFrames], {'queryParams': {'type': type,'projectCode':projectCode}});
         break;
       case 3 :
-        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proRepository], {'queryParams': {'type': type}});
+        this.router.navigate([SettingUrl.ROUTERLINK.buildPro.proRepository], {'queryParams': {'type': type,'projectCode':projectCode}});
         break;
     }
   }

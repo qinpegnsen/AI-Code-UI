@@ -63,7 +63,7 @@ export class DetailComponent implements OnInit {
    * @param type 新增还是修改
    */
   skipTo(step,type) {
-    this.project.routerSkip(step,type);
+    this.project.routerSkip(step,type,this.projectCode);
   }
 
 }

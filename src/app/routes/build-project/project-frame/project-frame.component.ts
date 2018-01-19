@@ -18,6 +18,7 @@ export class ProjectFrameComponent implements OnInit {
   selectFramework: any=new Array();           //选择的技术框架数据集合
   type: string;                               //路由携带的参数
   buildProInfo:any;                           //当前项目的信息
+  routerProjectCode:String;                           //路由传递过来的项目的编码
   constructor(public steps:ProjectStepsComponent,
               public _notification:NzNotificationService,
               public routeInfo: ActivatedRoute,
@@ -28,6 +29,7 @@ export class ProjectFrameComponent implements OnInit {
   ngOnInit() {
     let me = this;
     me.type = me.routeInfo.snapshot.queryParams['type'];
+    me.routerProjectCode = me.routeInfo.snapshot.queryParams['projectCode'];
     me.spectPreStep();
     me.queryFramesList();
     if (me.type == 'edit') {
@@ -40,12 +42,17 @@ export class ProjectFrameComponent implements OnInit {
    */
   spectPreStep(){
     let me=this;
+    if(me.routerProjectCode){
+      sessionStorage.setItem('projectCode',JSON.stringify(me.routerProjectCode))
+    }
     let data={
-      code:sessionStorage.getItem('projectCode')
+      code: me.routerProjectCode||sessionStorage.getItem('projectCode')
     };
-    $.when(me.buildProjectService.loadProject(data)).done(data => {
+    console.log("█ me.routerProjectCode ►►►",  me.routerProjectCode);
+    $.when(me.buildProjectService.loadProject(data)).done(result => {
       me.buildProInfo=data;
-      if(!data.projectSqlList.length){
+      console.log("█ result ►►►",  result);
+      if(!result.projectSqlList.length){
         me.skipTo(1,'add')
       }
     });
@@ -77,9 +84,9 @@ export class ProjectFrameComponent implements OnInit {
    */
   public loadSelectFrames() {
     let me = this;
-    if(sessionStorage.getItem('projectCode')){
+    if(me.routerProjectCode||sessionStorage.getItem('projectCode')){
       let data={
-        code:sessionStorage.getItem('projectCode')
+        code:me.routerProjectCode||sessionStorage.getItem('projectCode')
       };
       $.when(me.buildProjectService.loadProject(data)).done(data => {
         for(let i=0;i<me.frames.length;i++){
@@ -128,7 +135,7 @@ export class ProjectFrameComponent implements OnInit {
           me._notification.info('小提示','请至少选择一红技术框架')
         }else{
           let data={
-            projectCode:sessionStorage.getItem('projectCode'),
+            projectCode:me.routerProjectCode||sessionStorage.getItem('projectCode'),
             frameworkCode:me.selectFramework.join(',')
           };
           $.when(me.buildProjectService.linkFrames(data)).always(data => {
@@ -145,7 +152,7 @@ export class ProjectFrameComponent implements OnInit {
           me._notification.info('小提示','请至少选择一红技术框架')
         }else{
           let data={
-            projectCode:sessionStorage.getItem('projectCode'),
+            projectCode:me.routerProjectCode||sessionStorage.getItem('projectCode'),
             frameworkCode:me.selectFramework.join(',')
           };
           $.when(me.buildProjectService.modifyFrames(data)).always(data => {
