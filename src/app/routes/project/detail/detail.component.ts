@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProjectService } from '../project.service';
+declare var $: any;
 
 @Component({
   selector: 'app-detail',
@@ -12,6 +15,8 @@ export class DetailComponent implements OnInit {
     scrollBeyondLastLine: false,
     readOnly: true,
   };
+  public projectCode: string;
+  public projectData: any= {};
   public code: string = `CREATE NONCLUSTERED INDEX IX_WorkOrder_ProductID ON Production.WorkOrder(ProductID)
   WITH (FILLFACTOR = 80,PAD_INDEX = ON,DROP_EXISTING = ON);GO`;
 
@@ -35,9 +40,19 @@ export class DetailComponent implements OnInit {
   ];
 
 
-  constructor() { }
+  constructor(public project: ProjectService, public route: ActivatedRoute, public router: Router) { }
 
   ngOnInit() {
+    this.projectCode = this.route.snapshot.queryParams['code'];
+    $.when(this.project.getDetail(this.projectCode)).always(data => {
+      // this._loading = false;//解除锁屏
+      this.projectData = data;
+      console.log(data);
+    });
+  }
+
+  goBack() {
+    this.router.navigate(['/main/project']);
   }
 
 }

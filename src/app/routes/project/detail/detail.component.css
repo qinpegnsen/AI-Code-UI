@@ -3,6 +3,9 @@
     padding: 20px;
     border-radius: 5px;
 }
+.back{
+    text-align: right;
+}
 #detail>div{
     margin-bottom: 20px;
 }

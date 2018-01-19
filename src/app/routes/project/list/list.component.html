@@ -1,20 +1,18 @@
 <div id="list">
   <div nz-row [nzGutter]="15">
-    <div nz-col *ngFor="let i of [1,2,3,4,5,6]" [nzSpan]="6" class="project">
+    <div nz-col *ngFor="let project of projectList.voList" [nzSpan]="6" class="project">
       <nz-card>
         <ng-template #body>
           <div class="project_name">
-            <p class="project_zh">庞帝教育</p>
-            <p class="project_en">Ponddy</p>
+            <p class="project_zh">{{project.name}}</p>
+            <p class="project_en">{{project.englishName}}</p>
           </div>
-          <div class="project_summary">
-            庞帝教育庞帝教育庞帝教育庞帝教育庞帝教育
-          </div>
+          <div class="project_summary">{{project.description}}</div>
           <div class="project_time">
             <nz-tooltip [nzTitle]="'创建时间'" [nzPlacement]="'topLeft'">
-              <span nz-tooltip>2018-1-17 12:30</span>
+              <span nz-tooltip>{{project.createTime}}</span>
             </nz-tooltip>
-            <button nz-button [nzType]="'default'" [nzSize]="'small'" class="detail">
+            <button nz-button [nzType]="'default'" [nzSize]="'small'" class="detail" (click)="goDetail(project)">
               <i class="anticon anticon-copy"></i>
               <span>详情</span>
             </button>

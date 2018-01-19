@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../project.service';
+import { Router } from '@angular/router';
 import { Page } from './../../../public/util/page';
 declare var $: any;
 
@@ -12,17 +13,28 @@ export class ListComponent implements OnInit {
 
   public projectList: Page = new Page();
 
-  constructor(public project: ProjectService) { }
+  constructor(public project: ProjectService, public router: Router) { }
 
   ngOnInit() {
-    this.getList();
+    this.queryList();
   }
 
-  getList() {
+  /**
+   * 查询项目列表
+   */
+  queryList() {
     $.when(this.project.getProjectList()).always(data => {
       // this._loading = false;//解除锁屏
-      console.log(data);
+      this.projectList = data;
     });
+  }
+
+  /**
+   * 跳转至项目详情
+   * @param param0 项目编号
+   */
+  goDetail({code: code}) {
+    this.router.navigate(['/main/project/detail'], {queryParams: {code: code}});
   }
 
 }
