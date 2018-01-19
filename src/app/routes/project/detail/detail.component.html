@@ -51,13 +51,13 @@
   </div>
   <div class="sql_info">
     <div class="info_title">SQL信息
-      <nz-tag [nzColor]="'red'"  (click)="skipTo(1,this.projectData.projectSqlList?.length?'edit':'add')">{{projectData.projectSqlList?.length?'已配置':'待配置'}}</nz-tag>
+      <nz-tag [nzColor]="projectData.projectSqlList?.length?'green':'red'"  (click)="skipTo(1,this.projectData.projectSqlList?.length?'edit':'add')">{{projectData.projectSqlList?.length?'已配置':'待配置'}}</nz-tag>
     </div>
     <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
   </div>
   <div class="technology_info">
     <div class="info_title">技术信息
-      <nz-tag [nzColor]="'red'" (click)="skipTo(2,this.projectData.projectSqlList?.length?'edit':'add')">{{projectData.projectFramworkList?.length?'已配置':'待配置'}}</nz-tag>
+      <nz-tag [nzColor]="projectData.projectFramworkList?.length?'green':'red'" (click)="skipTo(2,this.projectData.projectFramworkList?.length?'edit':'add')">{{projectData.projectFramworkList?.length?'已配置':'待配置'}}</nz-tag>
     </div>
     <div nz-row>
       <div nz-col [nzSpan]="2">
@@ -73,7 +73,7 @@
   </div>
   <div class="warehouse_info">
     <div class="info_title">仓库信息
-      <nz-tag [nzColor]="'red'" (click)="skipTo(3,this.projectData.projectSqlList?.length?'edit':'add')">{{projectData.projectRepositoryAccountList?.length?'已配置':'待配置'}}</nz-tag>
+      <nz-tag [nzColor]="projectData.projectRepositoryAccountList?.length?'green':'red'" (click)="skipTo(3,this.projectData.projectRepositoryAccountList?.length?'edit':'add')">{{projectData.projectRepositoryAccountList?.length?'已配置':'待配置'}}</nz-tag>
     </div>
     <div nz-row>
       <div nz-col [nzSpan]="8">

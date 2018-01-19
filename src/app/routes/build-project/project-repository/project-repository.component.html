@@ -77,15 +77,6 @@
         </div>
       </div>
     </div>
-    <div nz-form-item nz-row>
-      <div nz-form-label nz-col [nzSpan]="8">
-        <label>项目编码</label>
-      </div>
-      <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('projectCode')" nzHasFeedback>
-        <nz-input formControlName="projectCode" [nzPlaceHolder]="'请填写项目编码'" [nzType]="'text'" [nzSize]="'large'">
-        </nz-input>
-      </div>
-    </div>
     <div nz-row class="text-center p-20 bt">
       <button nz-button [nzSize]="'large'" class="btn-blue" (click)="skipTo(2,'edit')">
         <span>上一步</span>

@@ -25,8 +25,8 @@ export class BuildProjectService {
       data: requestDate,
       success: (res) => {
         if (res.success) {
+          me._notification.success(`成功了`, res.info);
           defer.resolve(res.data);
-          me._notification.success(`成功了`, res.info)
         } else {
           me._notification.error(`出错了`, res.info)
         }
@@ -293,6 +293,7 @@ export class BuildProjectService {
       data: requestDate,
       success: (res) => {
         if (res.success) {
+          me._notification.success(`成功了`, res.info);
           defer.resolve(res.data);
         } else {
           me._notification.error(`出错了`, res.info)

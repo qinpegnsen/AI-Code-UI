@@ -72,7 +72,6 @@ export class ProjectRepositoryComponent implements OnInit {
         code:sessionStorage.getItem('repositoryCode')
       };
       $.when(me.buildProjectService.loadRepository(data)).done(data => {
-        console.log("█ data ►►►",  data);
         me.validateForm = me.fb.group({
           account: [data.account, [Validators.required]],
           password: [data.password, [Validators.required]],
@@ -108,10 +107,10 @@ export class ProjectRepositoryComponent implements OnInit {
    */
   nextStep($event,value){
     $event.preventDefault();
+    value['projectCode']=sessionStorage.getItem('projectCode')
     $.when(this.buildProjectService.buildRepository(value)).always(data => {
       this._loading = false;//解除锁屏
       if (data) {
-        console.log("█ data ►►►",  data);
         sessionStorage.setItem('repositoryCode',data.code);
         this.router.navigate([SettingUrl.ROUTERLINK.project.detail], {queryParams: {code: sessionStorage.getItem('projectCode')}});
       }
