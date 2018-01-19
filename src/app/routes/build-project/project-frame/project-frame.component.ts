@@ -4,6 +4,7 @@ import {Setting} from "../../../public/setting/setting";
 import {BuildProjectService} from "../build-project.service";
 import {NzNotificationService} from "ng-zorro-antd";
 import {ActivatedRoute} from "@angular/router";
+import {isNullOrUndefined} from "util";
 declare var $: any;
 @Component({
   selector: 'app-project-frame',
@@ -52,8 +53,10 @@ export class ProjectFrameComponent implements OnInit {
     $.when(me.buildProjectService.loadProject(data)).done(result => {
       me.buildProInfo=data;
       console.log("█ result ►►►",  result);
-      if(!result.projectSqlList.length){
-        me.skipTo(1,'add')
+      if(!isNullOrUndefined(result)){
+        if(!result.projectSqlList.length){
+          me.skipTo(1,'add')
+        }
       }
     });
   }

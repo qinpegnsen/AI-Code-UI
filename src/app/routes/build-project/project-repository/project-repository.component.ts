@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BuildProjectService} from "../build-project.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SettingUrl} from "../../../public/setting/setting_url";
+import {isNullOrUndefined} from "util";
 declare var $: any;
 
 @Component({
@@ -61,8 +62,10 @@ export class ProjectRepositoryComponent implements OnInit {
       if (me.type == 'edit') {
         me.loadRepository();
       }
-      if(!data.projectFramworkList.length){
-        me.skipTo(2,'add')
+      if(!isNullOrUndefined(data)){
+        if(!data.projectFramworkList.length){
+          me.skipTo(2,'add')
+        }
       }
     });
   }
