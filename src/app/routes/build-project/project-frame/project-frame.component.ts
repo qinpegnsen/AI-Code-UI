@@ -19,7 +19,7 @@ export class ProjectFrameComponent implements OnInit {
   selectFramework: any=new Array();           //选择的技术框架数据集合
   type: string;                               //路由携带的参数
   buildProInfo:any;                           //当前项目的信息
-  routerProjectCode:String;                           //路由传递过来的项目的编码
+  routerProjectCode:string;                           //路由传递过来的项目的编码
   constructor(public steps:ProjectStepsComponent,
               public _notification:NzNotificationService,
               public routeInfo: ActivatedRoute,
@@ -44,7 +44,7 @@ export class ProjectFrameComponent implements OnInit {
   spectPreStep(){
     let me=this;
     if(me.routerProjectCode){
-      sessionStorage.setItem('projectCode',JSON.stringify(me.routerProjectCode))
+      sessionStorage.setItem('projectCode',me.routerProjectCode)
     }
     let data={
       code: me.routerProjectCode||sessionStorage.getItem('projectCode')

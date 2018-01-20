@@ -20,7 +20,7 @@ export class ProjectRepositoryComponent implements OnInit {
   _loading: boolean = false;                 //查询时锁屏,默认关闭
   type: string;                               //路由携带的参数
   buildProInfo:any;                           //当前项目的信息
-  routerProjectCode:String;                           //路由传递过来的项目的编码
+  routerProjectCode:string;                           //路由传递过来的项目的编码
   constructor(public fb: FormBuilder,
               public buildProjectService:BuildProjectService,
               public routeInfo: ActivatedRoute,
@@ -51,7 +51,7 @@ export class ProjectRepositoryComponent implements OnInit {
   spectPreStep(){
     let me=this;
     if(me.routerProjectCode){
-      sessionStorage.setItem('projectCode',JSON.stringify(me.routerProjectCode))
+      sessionStorage.setItem('projectCode',me.routerProjectCode)
     }
     let data={
       code:me.routerProjectCode||sessionStorage.getItem('projectCode')

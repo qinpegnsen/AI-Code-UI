@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Setting} from "../../../public/setting/setting";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BuildProjectService} from "../build-project.service";
@@ -13,53 +13,53 @@ declare var $: any;
 export class ProjectInfoComponent implements OnInit {
 
   guideLang: any = Setting.PAGEMSG;                  //引导语
-  type: string ;                                     //路由携带的参数
+  type: string;                                     //路由携带的参数
   validateForm: FormGroup;
-  buildProInfo:any;                                   //当前项目的信息
-  routerProjectCode:String;                           //路由传递过来的项目的编码
+  buildProInfo: any;                                   //当前项目的信息
+  routerProjectCode:string;                           //路由传递过来的项目的编码
   constructor(public fb: FormBuilder,
-              public buildProjectService:BuildProjectService,
+              public buildProjectService: BuildProjectService,
               public routeInfo: ActivatedRoute,
-              public steps:ProjectStepsComponent) {
+              public steps: ProjectStepsComponent) {
     //企业注册表单项校验
     this.validateForm = this.fb.group({
-      name: ['', [Validators.required,Validators.maxLength(50)]],
-      englishName: ['', [Validators.required,Validators.maxLength(50)]],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      englishName: ['', [Validators.required, Validators.maxLength(50)]],
       databaseType: ['Mysql'],
-      copyright: ['', [Validators.required,Validators.maxLength(50)]],
-      author: ['', [Validators.required,Validators.maxLength(50)]],
-      phone: ['', [Validators.required,Validators.maxLength(50)]],
-      description: ['',[Validators.maxLength(50)]],
-      language: ['',[Validators.maxLength(50)]],
-      basePackage: ['',[Validators.maxLength(50)]],
+      copyright: ['', [Validators.required, Validators.maxLength(50)]],
+      author: ['', [Validators.required, Validators.maxLength(50)]],
+      phone: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.maxLength(50)]],
+      language: ['', [Validators.maxLength(50)]],
+      basePackage: ['', [Validators.maxLength(50)]],
     });
     this.steps.current = 0;//添加项目的进度条
   }
 
   ngOnInit() {
-    let me=this;
+    let me = this;
     me.type = me.routeInfo.snapshot.queryParams['type'];
     me.routerProjectCode = me.routeInfo.snapshot.queryParams['projectCode'];
-    console.log("█ me.routerProjectCode ►►►",  me.routerProjectCode);
     me.spectPreStep();
-    if(me.type =='edit'){
+    if (me.type == 'edit') {
       me.loadProInfo();
     }
   }
 
   /**
-   * 检查上一步是否填写，如果没有跳回到上一步
+   * 检查上一步是否填写，如果没有跳回到上一步或者buildProInfo赋值
    */
-  spectPreStep(){
-    let me=this;
-    if(me.routerProjectCode){
-      sessionStorage.setItem('projectCode',JSON.stringify(me.routerProjectCode))
+  spectPreStep() {
+    let me = this;
+    if (me.routerProjectCode) {
+      sessionStorage.setItem('projectCode', me.routerProjectCode)
     }
-    let data={
-      code:me.routerProjectCode||sessionStorage.getItem('projectCode')
+    let data = {
+      code: me.routerProjectCode || sessionStorage.getItem('projectCode')
     };
     $.when(me.buildProjectService.loadProject(data)).done(data => {
-      me.buildProInfo=data;
+      console.log("█ data ►►►", data);
+      me.buildProInfo = data;
     });
   }
 
@@ -69,21 +69,24 @@ export class ProjectInfoComponent implements OnInit {
    */
   loadProInfo() {
     let me = this;
-    if(sessionStorage.getItem('projectCode')){
-      let data={
-        code:sessionStorage.getItem('projectCode')
+    console.log("█ sessionStorage.getItem('projectCode') ►►►", sessionStorage.getItem('projectCode'));
+    if (sessionStorage.getItem('projectCode')) {
+      let data = {
+        code: sessionStorage.getItem('projectCode')
       };
+      console.log("█ data ►►►", data);
       $.when(me.buildProjectService.loadProject(data)).done(data => {
+        console.log("█ data ►►►", data);
         me.validateForm = me.fb.group({
-          name: [data.name, [Validators.required,Validators.maxLength(50)]],
-          englishName: [data.englishName, [Validators.required,Validators.maxLength(50)]],
+          name: [data.name, [Validators.required, Validators.maxLength(50)]],
+          englishName: [data.englishName, [Validators.required, Validators.maxLength(50)]],
           databaseType: [data.databaseType],
-          copyright: [data.copyright, [Validators.required,Validators.maxLength(50)]],
-          author: [data.author, [Validators.required,Validators.maxLength(50)]],
-          phone: [data.phone, [Validators.required,Validators.maxLength(50)]],
-          description: [data.description,[Validators.maxLength(50)]],
-          language: [data.language,[Validators.maxLength(50)]],
-          basePackage: [data.basePackage,[Validators.maxLength(50)]],
+          copyright: [data.copyright, [Validators.required, Validators.maxLength(50)]],
+          author: [data.author, [Validators.required, Validators.maxLength(50)]],
+          phone: [data.phone, [Validators.required, Validators.maxLength(50)]],
+          description: [data.description, [Validators.maxLength(50)]],
+          language: [data.language, [Validators.maxLength(50)]],
+          basePackage: [data.basePackage, [Validators.maxLength(50)]],
         });
       })
     }
@@ -107,26 +110,26 @@ export class ProjectInfoComponent implements OnInit {
   nextStep = ($event, validateForm) => {
     $event.preventDefault();
     let me = this;
-    if(!validateForm.valid){
+    if (!validateForm.valid) {
       return;
     }
-    switch (me.type){
-      case 'add':{
+    switch (me.type) {
+      case 'add': {
         $.when(me.buildProjectService.buildProject(validateForm.value)).done(data => {
-          if(data){
-            sessionStorage.setItem('projectCode',data.code);
-            me.buildProjectService.routerSkip(1,'add');
+          if (data) {
+            sessionStorage.setItem('projectCode', data.code);
+            me.buildProjectService.routerSkip(1, 'add');
           }
         });
         break;
       }
-      case 'edit':{
-        validateForm.value['code']=sessionStorage.getItem('projectCode');
+      case 'edit': {
+        validateForm.value['code'] = sessionStorage.getItem('projectCode');
         $.when(me.buildProjectService.modifyProject(validateForm.value)).done(data => {
-          if(data){
-            sessionStorage.setItem('projectCode',data.code);
-            let type=me.buildProInfo.projectSqlList.length?'edit':'add';
-            me.buildProjectService.routerSkip(1,type);
+          if (data) {
+            sessionStorage.setItem('projectCode', data.code);
+            let type = me.buildProInfo.projectSqlList.length ? 'edit' : 'add';
+            me.buildProjectService.routerSkip(1, type);
           }
         });
         break;
