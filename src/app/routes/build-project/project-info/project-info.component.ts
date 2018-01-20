@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BuildProjectService} from "../build-project.service";
 import {ProjectStepsComponent} from "../project-steps/project-steps.component";
 import {ActivatedRoute} from "@angular/router";
+import {PatternService} from "../../../public/service/pattern.service";
 declare var $: any;
 @Component({
   selector: 'app-project-info',
@@ -20,11 +21,12 @@ export class ProjectInfoComponent implements OnInit {
   constructor(public fb: FormBuilder,
               public buildProjectService: BuildProjectService,
               public routeInfo: ActivatedRoute,
+              public pattern: PatternService,
               public steps: ProjectStepsComponent) {
     //企业注册表单项校验
     this.validateForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      englishName: ['', [Validators.required, Validators.maxLength(50)]],
+      englishName: ['', [Validators.required, Validators.maxLength(50),Validators.pattern(this.pattern.letter)]],
       databaseType: ['Mysql'],
       copyright: ['', [Validators.required, Validators.maxLength(50)]],
       author: ['', [Validators.required, Validators.maxLength(50)]],
@@ -79,7 +81,7 @@ export class ProjectInfoComponent implements OnInit {
         console.log("█ data ►►►", data);
         me.validateForm = me.fb.group({
           name: [data.name, [Validators.required, Validators.maxLength(50)]],
-          englishName: [data.englishName, [Validators.required, Validators.maxLength(50)]],
+          englishName: [data.englishName, [Validators.required, Validators.maxLength(50),Validators.pattern(this.pattern.letter)]],
           databaseType: [data.databaseType],
           copyright: [data.copyright, [Validators.required, Validators.maxLength(50)]],
           author: [data.author, [Validators.required, Validators.maxLength(50)]],

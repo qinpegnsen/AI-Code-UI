@@ -32,13 +32,16 @@
       </div>
       <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('englishName')" nzHasFeedback>
         <nz-input formControlName="englishName" [nzPlaceHolder]="'请填写项目英文名'" [nzType]="'text'" [nzSize]="'large'">
-        </nz-input>
+        </nz-input>{{getFormControl('englishName').errors }}
         <div nz-form-explain
              *ngIf="getFormControl('englishName').dirty&&getFormControl('englishName').hasError('required')">
           请填写项目英文名！
         </div>
         <div nz-form-explain *ngIf="getFormControl('englishName').dirty&&getFormControl('englishName').hasError('maxlength')">
           输入的长度不能超过50位！
+        </div>
+        <div nz-form-explain *ngIf="getFormControl('englishName').dirty&&getFormControl('englishName').hasError('pattern')">
+          请输入英文名！
         </div>
       </div>
     </div>
