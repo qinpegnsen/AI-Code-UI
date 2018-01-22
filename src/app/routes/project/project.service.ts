@@ -34,6 +34,78 @@ export class ProjectService {
         return defer.promise();
     }
 
+  /**
+   * 删除项目
+   * requestDate: any 传递的数据
+   */
+  delPro(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.del({
+      url: SettingUrl.URL.projectCtrl.delete,
+      data:requestDate,
+      success: (res) => {
+        if (res.success) {
+          me._notification.success(`成功了`, res.info);
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
+  /**
+   * 创建任务
+   * requestDate: any 传递的数据
+   */
+  buildTask(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.post({
+      url: SettingUrl.URL.projectJobCtrl.build,
+      data:requestDate,
+      success: (res) => {
+        if (res.success) {
+          me._notification.success(`成功了`, res.info);
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
+  /**
+   * 创建任务
+   * requestDate: any 传递的数据
+   */
+  excuteTask(requestDate: any) {
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.projectJobCtrl.execute,
+      data:requestDate,
+      success: (res) => {
+        if (res.success) {
+          me._notification.success(`成功了`, res.info);
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
+
     /**
      * 查询项目详情
      * @param code 项目编号

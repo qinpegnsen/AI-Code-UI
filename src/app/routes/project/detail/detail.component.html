@@ -63,11 +63,8 @@
       <div nz-col [nzSpan]="2">
         所选技术：
       </div>
-      <div nz-col [nzSpan]="22">
-        <nz-tag>Java</nz-tag>
-        <nz-tag>Node</nz-tag>
-        <nz-tag>Typescipt</nz-tag>
-        <nz-tag>Mysql</nz-tag>
+      <div nz-col [nzSpan]="22" *ngFor="let item of framslist;">
+        <nz-tag>{{item.frameworks?.name}}</nz-tag>
       </div>
     </div>
   </div>
@@ -81,7 +78,7 @@
           仓库类型：
         </div>
         <div nz-col [nzSpan]="18">
-          git
+          {{repositoryInfo?.type}}
         </div>
       </div>
       <div nz-col [nzSpan]="8">
@@ -89,7 +86,7 @@
           仓库账号：
         </div>
         <div nz-col [nzSpan]="18">
-          col-12
+          {{repositoryInfo?.account}}
         </div>
       </div>
       <div nz-col [nzSpan]="8">
@@ -97,7 +94,7 @@
           仓库地址：
         </div>
         <div nz-col [nzSpan]="18">
-          col-12
+          {{repositoryInfo?.home}}
         </div>
       </div>
     </div>
@@ -106,7 +103,7 @@
         仓库描述：
       </div>
       <div nz-col [nzSpan]="22">
-        git
+        {{repositoryInfo?.description}}
       </div>
     </div>
   </div>
@@ -146,6 +143,6 @@
     </nz-table>
   </div>
   <div class="creat_code">
-    <button nz-button [nzSize]="'large'" [nzType]="'primary'">生成项目代码</button>
+    <button nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="buildTask()">生成项目代码</button>
   </div>
 </div>

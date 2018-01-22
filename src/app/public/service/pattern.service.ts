@@ -23,6 +23,7 @@ export class PatternService {
   public PWD: RegExp;//密码
   public SMS: RegExp;//短信验证码
   public PHONE: RegExp;//手机号
+  public enName: RegExp;////由数字、26个英文字母或者下划线组成的字符串
 
   constructor() {
     this.num = '^[0-9]*$'; //数字正则
@@ -44,6 +45,8 @@ export class PatternService {
     this.PWD = /[A-Za-z0-9]{6,}/;//密码
     this.SMS = /\d{6}/;//短信验证码
     this.PHONE = /^1[0-9]{10}$/;//手机号
+    this.enName = /^[a-zA-Z][a-zA-Z0-9_]*$/;//由数字、26个英文字母或者下划线组成的字符串
+
 
   }
 

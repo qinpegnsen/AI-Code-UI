@@ -58,6 +58,7 @@ export class ProjectSqlComponent implements OnInit {
    */
   loadProSql() {
     let me = this;
+    console.log("█ me.routerProjectCode||sessionStorage.getItem('proSqlCode') ►►►",  me.routerProjectCode||sessionStorage.getItem('proSqlCode'));
     if (me.routerProjectCode||sessionStorage.getItem('proSqlCode')) {
       console.log("█ expr ►►►",  me.buildProInfo);
       let data = {
@@ -110,6 +111,7 @@ export class ProjectSqlComponent implements OnInit {
           code:me.buildProInfo.projectSqlList[0].code||sessionStorage.getItem('proSqlCode'),//	tsql编码
           tsql: me.code//sql脚本
         };
+        sessionStorage.setItem('proSqlCode', data.code);//存储sql code
         //关联sql
         $.when(me.buildProjectService.modifySql(data)).always(data => {
           me._loading = false;//解除锁屏

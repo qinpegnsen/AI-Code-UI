@@ -26,6 +26,7 @@ export class ListComponent implements OnInit {
   queryList() {
     $.when(this.project.getProjectList()).always(data => {
       // this._loading = false;//解除锁屏
+      console.log("█ data ►►►",  data);
       this.projectList = data;
     });
   }
@@ -36,6 +37,21 @@ export class ListComponent implements OnInit {
    */
   goDetail({code: code}) {
     this.router.navigate([SettingUrl.ROUTERLINK.project.detail], {queryParams: {code: code}});
+  }
+
+  /**
+   * 删除项目
+   * @param project
+   */
+  goDel(project){
+    let data={
+      code:project.code
+    };
+    $.when(this.project.delPro(data)).always(data => {
+      // this._loading = false;//解除锁屏
+      this.queryList();
+
+    });
   }
 
 }

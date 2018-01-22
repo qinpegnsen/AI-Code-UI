@@ -22,6 +22,18 @@ export class SettingUrl {
       modify: '/project/modify',//（put）修改项目
     },
     /**
+     * 项目任务管理控制器
+     */
+    projectJobCtrl: {
+      build: '/project/job/build',//（post）创建任务
+      execute: '/project/job/execute',//（get）执行任务
+      delete: '/project/job/delete',//（delete）删除任务
+      list: '/project/job/list',//（get）查询任务列表
+      load: '/project/job/load',//（get）load当前任务
+      modify: '/project/job/modify',//（put）修改任务
+
+    },
+    /**
      * 框架技术控制器
      */
     frameworksCtrl: {

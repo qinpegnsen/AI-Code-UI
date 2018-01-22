@@ -32,7 +32,7 @@
       </div>
       <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('englishName')" nzHasFeedback>
         <nz-input formControlName="englishName" [nzPlaceHolder]="'请填写项目英文名'" [nzType]="'text'" [nzSize]="'large'">
-        </nz-input>{{getFormControl('englishName').errors }}
+        </nz-input>
         <div nz-form-explain
              *ngIf="getFormControl('englishName').dirty&&getFormControl('englishName').hasError('required')">
           请填写项目英文名！
@@ -113,14 +113,20 @@
       <div nz-form-label nz-col [nzSpan]="8">
         <label nz-form-item-required>项目语言</label>
       </div>
-      <div nz-col [nzSpan]="8" nz-form-control>
-        <nz-input formControlName="language" [nzPlaceHolder]="'请填写项目语言'" [nzType]="'text'" [nzSize]="'large'">
-        </nz-input>
-        <div nz-form-explain *ngIf="getFormControl('language').dirty&&getFormControl('language').hasError('maxlength')">
-          输入的长度不能超过50位！
-        </div>
-      </div>
 
+      <div nz-col [nzSpan]="8" nz-form-control>
+        <nz-radio-group  [formControl]="validateForm.controls['language']">
+          <label nz-radio [nzValue]="'java'">
+            <span>java</span>
+          </label>
+          <label nz-radio [nzValue]="'js'">
+            <span>js</span>
+          </label>
+          <label nz-radio [nzValue]="'python'">
+            <span>python</span>
+          </label>
+        </nz-radio-group>
+      </div>
     </div>
     <div nz-form-item nz-row>
       <div nz-form-label nz-col [nzSpan]="8">

@@ -37,3 +37,17 @@
     color: #49a9ee;
     border-color: #49a9ee;
 }
+.myCss{
+  float:right;
+}
+.myWidth{
+  display: inline-block;
+  width:130px !important;
+  overflow: hidden;
+}
+.delCss{
+  background: #999;
+}
+.myLan{
+  font-color:red !important;
+}

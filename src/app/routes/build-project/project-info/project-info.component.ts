@@ -26,7 +26,7 @@ export class ProjectInfoComponent implements OnInit {
     //企业注册表单项校验
     this.validateForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      englishName: ['', [Validators.required, Validators.maxLength(50),Validators.pattern(this.pattern.letter)]],
+      englishName: ['', [Validators.required, Validators.maxLength(50),Validators.pattern(this.pattern.enName)]],
       databaseType: ['Mysql'],
       copyright: ['', [Validators.required, Validators.maxLength(500)]],
       author: ['', [Validators.required, Validators.maxLength(50)]],
@@ -78,7 +78,7 @@ export class ProjectInfoComponent implements OnInit {
       $.when(me.buildProjectService.loadProject(data)).done(data => {
         me.validateForm = me.fb.group({
           name: [data.name, [Validators.required, Validators.maxLength(50)]],
-          englishName: [data.englishName, [Validators.required, Validators.maxLength(50),Validators.pattern(this.pattern.letter)]],
+          englishName: [data.englishName, [Validators.required, Validators.maxLength(50),Validators.pattern(this.pattern.enName)]],
           databaseType: [data.databaseType],
           copyright: [data.copyright, [Validators.required, Validators.maxLength(500)]],
           author: [data.author, [Validators.required, Validators.maxLength(50)]],

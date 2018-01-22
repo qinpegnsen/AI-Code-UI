@@ -177,7 +177,7 @@ export class ProjectFrameComponent implements OnInit {
     this.selectFramework=[];
     for(let i=0;i<this.frames.length;i++){
       if(this.frames[i].checked){
-        this.selectFramework.push(this.frames[i].label)
+        this.selectFramework.push(this.frames[i].value)
       }
     }
   }
