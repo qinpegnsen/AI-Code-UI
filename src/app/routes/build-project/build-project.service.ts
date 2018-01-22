@@ -216,7 +216,7 @@ export class BuildProjectService {
     let me = this, defer = $.Deferred(); //封装异步请求结果
     AjaxService.post({
       url: SettingUrl.URL.projectFramworkCtrl.add,
-      data: requestDate,
+      data: JSON.stringify(requestDate).slice(0,-1),
       success: (res) => {
         if (res.success) {
           me._notification.success(`成功了`, res.info)
@@ -241,7 +241,7 @@ export class BuildProjectService {
     let me = this, defer = $.Deferred(); //封装异步请求结果
     AjaxService.post({
       url: SettingUrl.URL.projectFramworkCtrl.add,
-      data: requestDate,
+      data: JSON.stringify(requestDate),
       success: (res) => {
         if (res.success) {
           me._notification.success(`成功了`, res.info);

@@ -137,11 +137,13 @@ export class ProjectFrameComponent implements OnInit {
         if(me.selectFramework==0){
           me._notification.info('小提示','请至少选择一红技术框架')
         }else{
-          let data={
-            projectCode:me.routerProjectCode||sessionStorage.getItem('projectCode'),
-            frameworkCode:me.selectFramework.join(',')
-          };
-          $.when(me.buildProjectService.linkFrames(data)).always(data => {
+          let arr=new Array();
+          console.log("█ me.selectFramework.join(',') ►►►",  me.selectFramework.join(','));
+          for(let i=0;i<me.selectFramework.length;i++){
+            arr.push({'frameworkCode':me.selectFramework[i],'projectCode':me.routerProjectCode||sessionStorage.getItem('projectCode')})
+          }
+          console.log("█ arr ►►►",  arr);
+          $.when(me.buildProjectService.linkFrames(arr)).always(data => {
             me._loading = false;//解除锁屏
             if (data) {
               me.buildProjectService.routerSkip(3,'add');
@@ -154,11 +156,13 @@ export class ProjectFrameComponent implements OnInit {
         if(me.selectFramework==0){
           me._notification.info('小提示','请至少选择一红技术框架')
         }else{
-          let data={
-            projectCode:me.routerProjectCode||sessionStorage.getItem('projectCode'),
-            frameworkCode:me.selectFramework.join(',')
-          };
-          $.when(me.buildProjectService.modifyFrames(data)).always(data => {
+          let arr=new Array();
+          for(let i=0;i<me.selectFramework.length;i++){
+            arr.push({'frameworkCode':me.selectFramework[i],'projectCode':me.routerProjectCode||sessionStorage.getItem('projectCode')})
+          }
+          console.log("█ arr ►►►",  JSON.stringify(arr));
+
+          $.when(me.buildProjectService.modifyFrames(arr)).always(data => {
             me._loading = false;//解除锁屏
             if (data) {
               let type=me.buildProInfo.projectRepositoryAccountList.length?'edit':'add';
