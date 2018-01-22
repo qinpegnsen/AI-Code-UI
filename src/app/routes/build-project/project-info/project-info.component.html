@@ -68,7 +68,7 @@
         <label nz-form-item-required>项目版权文字信息</label>
       </div>
       <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('copyright')" nzHasFeedback>
-        <nz-input formControlName="copyright" [nzPlaceHolder]="'请填写项目版权文字信息'" [nzType]="'text'" [nzSize]="'large'">
+        <nz-input [nzType]="'textarea'"  [nzRows]="'4'" formControlName="copyright" [nzPlaceHolder]="'请填写项目版权文字信息'" [nzType]="'text'" [nzSize]="'large'">
         </nz-input>
         <div nz-form-explain
              *ngIf="getFormControl('copyright').dirty&&getFormControl('copyright').hasError('required')">

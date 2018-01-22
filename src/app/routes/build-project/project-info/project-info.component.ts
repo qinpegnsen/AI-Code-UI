@@ -28,7 +28,7 @@ export class ProjectInfoComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       englishName: ['', [Validators.required, Validators.maxLength(50),Validators.pattern(this.pattern.letter)]],
       databaseType: ['Mysql'],
-      copyright: ['', [Validators.required, Validators.maxLength(50)]],
+      copyright: ['', [Validators.required, Validators.maxLength(500)]],
       author: ['', [Validators.required, Validators.maxLength(50)]],
       phone: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.maxLength(50)]],
@@ -59,9 +59,8 @@ export class ProjectInfoComponent implements OnInit {
     let data = {
       code: me.routerProjectCode || sessionStorage.getItem('projectCode')
     };
-    $.when(me.buildProjectService.loadProject(data)).done(data => {
-      console.log("█ data ►►►", data);
-      me.buildProInfo = data;
+    $.when(me.buildProjectService.loadProject(data)).done(result => {
+      me.buildProInfo = result;
     });
   }
 
@@ -76,14 +75,12 @@ export class ProjectInfoComponent implements OnInit {
       let data = {
         code: sessionStorage.getItem('projectCode')
       };
-      console.log("█ data ►►►", data);
       $.when(me.buildProjectService.loadProject(data)).done(data => {
-        console.log("█ data ►►►", data);
         me.validateForm = me.fb.group({
           name: [data.name, [Validators.required, Validators.maxLength(50)]],
           englishName: [data.englishName, [Validators.required, Validators.maxLength(50),Validators.pattern(this.pattern.letter)]],
           databaseType: [data.databaseType],
-          copyright: [data.copyright, [Validators.required, Validators.maxLength(50)]],
+          copyright: [data.copyright, [Validators.required, Validators.maxLength(500)]],
           author: [data.author, [Validators.required, Validators.maxLength(50)]],
           phone: [data.phone, [Validators.required, Validators.maxLength(50)]],
           description: [data.description, [Validators.maxLength(50)]],

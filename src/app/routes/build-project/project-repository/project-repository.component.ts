@@ -32,7 +32,7 @@ export class ProjectRepositoryComponent implements OnInit {
       password: ['', [Validators.required,Validators.maxLength(50)]],
       type: ['Git'],
       home: ['', [Validators.required,Validators.maxLength(50)]],
-      description: ['', [Validators.required,Validators.maxLength(50)]],
+      description: ['', [Validators.required,Validators.maxLength(100)]],
     });
     this.steps.current = 3;//添加项目的进度条
   }
@@ -56,14 +56,13 @@ export class ProjectRepositoryComponent implements OnInit {
     let data={
       code:me.routerProjectCode||sessionStorage.getItem('projectCode')
     };
-    $.when(me.buildProjectService.loadProject(data)).done(data => {
-      me.buildProInfo=data;
-      console.log("█ data ►►►",  data);
+    $.when(me.buildProjectService.loadProject(data)).done(result => {
+      me.buildProInfo=result;
       if (me.type == 'edit') {
         me.loadRepository();
       }
-      if(!isNullOrUndefined(data)){
-        if(!data.projectFramworkList.length){
+      if(!isNullOrUndefined(result)){
+        if(!result.projectFramworkList.length){
           me.skipTo(2,'add')
         }
       }
@@ -87,7 +86,7 @@ export class ProjectRepositoryComponent implements OnInit {
           password: [data.password, [Validators.required,Validators.maxLength(50)]],
           type: [data['type']],
           home: [data.home, [Validators.required,Validators.maxLength(50)]],
-          description: [data.description, [Validators.required,Validators.maxLength(50)]],
+          description: [data.description, [Validators.required,Validators.maxLength(100)]],
         });
       })
     }

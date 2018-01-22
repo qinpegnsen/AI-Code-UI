@@ -44,8 +44,8 @@ export class ProjectSqlComponent implements OnInit {
     let data={
       code:me.routerProjectCode||sessionStorage.getItem('projectCode')
     };
-    $.when(me.buildProjectService.loadProject(data)).done(data => {
-      me.buildProInfo=data;
+    $.when(me.buildProjectService.loadProject(data)).done(result => {
+      me.buildProInfo=result;
       if (me.type == 'edit') {
         me.loadProSql();
       }

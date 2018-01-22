@@ -79,7 +79,7 @@
         <label nz-form-item-required>仓库说明</label>
       </div>
       <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('description')" nzHasFeedback>
-        <nz-input formControlName="description" [nzPlaceHolder]="'请填写仓库说明'" [nzType]="'text'" [nzSize]="'large'">
+        <nz-input formControlName="description" [nzType]="'textarea'"  [nzRows]="'4'" [nzPlaceHolder]="'请填写仓库说明'" [nzType]="'text'" [nzSize]="'large'">
         </nz-input>
         <div nz-form-explain *ngIf="getFormControl('description').dirty&&getFormControl('description').hasError('required')">
           请填写仓库说明！

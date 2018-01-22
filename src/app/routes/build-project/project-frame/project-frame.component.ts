@@ -49,10 +49,8 @@ export class ProjectFrameComponent implements OnInit {
     let data={
       code: me.routerProjectCode||sessionStorage.getItem('projectCode')
     };
-    console.log("█ me.routerProjectCode ►►►",  me.routerProjectCode);
     $.when(me.buildProjectService.loadProject(data)).done(result => {
-      me.buildProInfo=data;
-      console.log("█ result ►►►",  result);
+      me.buildProInfo=result;
       if(!isNullOrUndefined(result)){
         if(!result.projectSqlList.length){
           me.skipTo(1,'add')
@@ -94,7 +92,7 @@ export class ProjectFrameComponent implements OnInit {
       $.when(me.buildProjectService.loadProject(data)).done(data => {
         for(let i=0;i<me.frames.length;i++){
           for(let j=0;j<data.projectFramworkList.length;j++){
-            if(me.frames[i]['label']==data.projectFramworkList[j]['frameworkCode']){
+            if(me.frames[i]['value']==data.projectFramworkList[j]['frameworkCode']){
               me.frames[i]['checked']=true;
             }
           }
@@ -110,8 +108,8 @@ export class ProjectFrameComponent implements OnInit {
   resetData(data){
     for(let i=0;i<data.voList.length;i++){
       let obj={};
-      obj['label']=data.voList[i].code;
-      obj['value']=data.voList[i].name;
+      obj['label']=data.voList[i].name;
+      obj['value']=data.voList[i].code;
       this.frames.push(obj);
     }
   }
@@ -132,17 +130,16 @@ export class ProjectFrameComponent implements OnInit {
     this.getFrameworkSelect();
     $event.preventDefault();
     let me=this;
+    console.log("█ me.type ►►►",  me.type);
     switch (me.type){
       case 'add':{
         if(me.selectFramework==0){
           me._notification.info('小提示','请至少选择一红技术框架')
         }else{
           let arr=new Array();
-          console.log("█ me.selectFramework.join(',') ►►►",  me.selectFramework.join(','));
           for(let i=0;i<me.selectFramework.length;i++){
             arr.push({'frameworkCode':me.selectFramework[i],'projectCode':me.routerProjectCode||sessionStorage.getItem('projectCode')})
           }
-          console.log("█ JSON.stringify(arr) ►►►",  JSON.stringify(arr));
           $.when(me.buildProjectService.linkFrames(arr)).always(data => {
             me._loading = false;//解除锁屏
             if (data) {
@@ -160,12 +157,10 @@ export class ProjectFrameComponent implements OnInit {
           for(let i=0;i<me.selectFramework.length;i++){
             arr.push({'frameworkCode':me.selectFramework[i],'projectCode':me.routerProjectCode||sessionStorage.getItem('projectCode')})
           }
-          console.log("█ arr ►►►",  JSON.stringify(arr));
-
           $.when(me.buildProjectService.modifyFrames(arr)).always(data => {
             me._loading = false;//解除锁屏
             if (data) {
-              let type=me.buildProInfo.projectRepositoryAccountList.length?'edit':'add';
+              let type=me.buildProInfo.projectRepositoryAccountList['length']>0?'edit':'add';
               me.buildProjectService.routerSkip(3,type);
             }
           })
