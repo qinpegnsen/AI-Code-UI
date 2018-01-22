@@ -142,7 +142,7 @@ export class ProjectFrameComponent implements OnInit {
           for(let i=0;i<me.selectFramework.length;i++){
             arr.push({'frameworkCode':me.selectFramework[i],'projectCode':me.routerProjectCode||sessionStorage.getItem('projectCode')})
           }
-          console.log("█ arr ►►►",  arr);
+          console.log("█ JSON.stringify(arr) ►►►",  JSON.stringify(arr));
           $.when(me.buildProjectService.linkFrames(arr)).always(data => {
             me._loading = false;//解除锁屏
             if (data) {
