@@ -130,7 +130,6 @@ export class ProjectFrameComponent implements OnInit {
     this.getFrameworkSelect();
     $event.preventDefault();
     let me=this;
-    console.log("█ me.type ►►►",  me.type);
     switch (me.type){
       case 'add':{
         if(me.selectFramework==0){

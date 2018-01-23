@@ -107,6 +107,9 @@ export class ProjectInfoComponent implements OnInit {
 
   nextStep = ($event, validateForm) => {
     $event.preventDefault();
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[ i ].markAsDirty();
+    }
     let me = this;
     if (!validateForm.valid) {
       return;
