@@ -70,7 +70,6 @@ export class ProjectInfoComponent implements OnInit {
    */
   loadProInfo() {
     let me = this;
-    console.log("█ sessionStorage.getItem('projectCode') ►►►", sessionStorage.getItem('projectCode'));
     if (sessionStorage.getItem('projectCode')) {
       let data = {
         code: sessionStorage.getItem('projectCode')
