@@ -26,7 +26,6 @@ export class ListComponent implements OnInit {
   queryList() {
     $.when(this.project.getProjectList()).always(data => {
       // this._loading = false;//解除锁屏
-      console.log("█ data ►►►",  data);
       this.projectList = data;
     });
   }
