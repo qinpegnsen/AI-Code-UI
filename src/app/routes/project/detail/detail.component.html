@@ -73,29 +73,29 @@
       <nz-tag [nzColor]="projectData.projectRepositoryAccountList?.length?'green':'red'" (click)="skipTo(3,this.projectData.projectRepositoryAccountList?.length?'edit':'add')">{{projectData.projectRepositoryAccountList?.length?'已配置':'待配置'}}</nz-tag>
     </div>
     <div nz-row>
-      <div nz-col [nzSpan]="8">
-        <div nz-col [nzSpan]="6">
+      <div nz-col [nzSpan]="12">
+        <div nz-col [nzSpan]="4">
           仓库类型：
         </div>
-        <div nz-col [nzSpan]="18">
+        <div nz-col [nzSpan]="20">
           {{repositoryInfo?.type}}
         </div>
       </div>
-      <div nz-col [nzSpan]="8">
-        <div nz-col [nzSpan]="6">
+      <div nz-col [nzSpan]="12">
+        <div nz-col [nzSpan]="4">
           仓库账号：
         </div>
-        <div nz-col [nzSpan]="18">
+        <div nz-col [nzSpan]="20">
           {{repositoryInfo?.account}}
         </div>
       </div>
-      <div nz-col [nzSpan]="8">
-        <div nz-col [nzSpan]="6">
-          仓库地址：
-        </div>
-        <div nz-col [nzSpan]="18">
-          <a [href]="repositoryInfo?.home" target="_blank">{{repositoryInfo?.home}}</a>
-        </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="2">
+        仓库地址：
+      </div>
+      <div nz-col [nzSpan]="22">
+        <a [href]="repositoryInfo?.home" target="_blank" class="myLink">{{repositoryInfo?.home}}</a>
       </div>
     </div>
     <div nz-row>
