@@ -42,8 +42,8 @@ export class ProjectInfoComponent implements OnInit {
     let me = this;
     me.type = me.routeInfo.snapshot.queryParams['type'];
     me.routerProjectCode = me.routeInfo.snapshot.queryParams['projectCode'];
-    me.spectPreStep();
     if (me.type == 'edit') {
+      me.spectPreStep();
       me.loadProInfo();
     }
   }

@@ -58,14 +58,11 @@ export class ProjectSqlComponent implements OnInit {
    */
   loadProSql() {
     let me = this;
-    console.log("█ me.routerProjectCode||sessionStorage.getItem('proSqlCode') ►►►",  me.routerProjectCode||sessionStorage.getItem('proSqlCode'));
     if (me.routerProjectCode||sessionStorage.getItem('proSqlCode')) {
-      console.log("█ expr ►►►",  me.buildProInfo);
       let data = {
         code: me.buildProInfo.projectSqlList[0].code||sessionStorage.getItem('proSqlCode'),
         projectCode: me.routerProjectCode||sessionStorage.getItem('projectCode')
       };
-      console.log("█ me.buildProInfo.projectSqlList[0].code ►►►",  me.buildProInfo.projectSqlList[0].code);
       $.when(me.buildProjectService.loadSql(data)).done(data => {
         me.code = data.tsql;
       })

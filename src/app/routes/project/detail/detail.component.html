@@ -94,7 +94,7 @@
           仓库地址：
         </div>
         <div nz-col [nzSpan]="18">
-          {{repositoryInfo?.home}}
+          <a [href]="repositoryInfo?.home" target="_blank">{{repositoryInfo?.home}}</a>
         </div>
       </div>
     </div>
