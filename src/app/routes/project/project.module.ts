@@ -5,10 +5,12 @@ import { SharedModule } from '../../shared/shared.module';
 import { DetailComponent } from './detail/detail.component';
 import { ProjectService } from './project.service';
 import {SpliceStrPipe} from "../../public/pipes/splice-str.pipe";
+import { LogPageComponent } from './log-page/log-page.component';
 
 const routes: Routes = [
   {path: '', component: ListComponent},
-  {path: 'detail', component: DetailComponent}
+  {path: 'detail', component: DetailComponent},
+  {path: 'logs', component: LogPageComponent}
 ];
 
 @NgModule({
@@ -20,7 +22,8 @@ const routes: Routes = [
   declarations: [
     ListComponent,
     DetailComponent,
-    SpliceStrPipe
-]
+    SpliceStrPipe,
+    LogPageComponent,
+    LogPageComponent]
 })
 export class ProjectModule { }

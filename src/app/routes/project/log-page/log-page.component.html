@@ -1,0 +1,10 @@
+<div id="log" class="p-20">
+  <div class="bg">
+    <div class="info_title">构建日志信息
+      <button nz-button [nzType]="'primary'" class="fr" (click)="goBack()">返回</button>
+    </div>
+  </div>
+  <div *ngFor="let item of logInfo">
+    <div *ngFor="let item of item">{{item.log}}</div>
+  </div>
+</div>

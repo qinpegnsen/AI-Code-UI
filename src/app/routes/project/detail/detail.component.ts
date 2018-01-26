@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectService} from '../project.service';
+import {SettingUrl} from "../../../public/setting/setting_url";
 declare var $: any;
 
 @Component({
@@ -49,12 +50,10 @@ export class DetailComponent implements OnInit {
   ngOnInit() {
     this.projectCode = this.route.snapshot.queryParams['code'];
     $.when(this.project.getDetail(this.projectCode)).always(data => {
-      // this._loading = false;//解除锁屏
       this.projectData = data;
       this.code = data.projectSqlList[0].tsql;
       this.framslist = data.projectFramworkList;
       this.repositoryInfo = data.projectRepositoryAccountList[0];
-      console.log("█ this.projectData ►►►", this.projectData);
     });
   }
 
@@ -75,26 +74,13 @@ export class DetailComponent implements OnInit {
    * 生成任务
    */
   buildTask() {
-    let data = {
-      projectCode: this.projectData.code,
-      name: this.projectData.name,
-      description: this.projectData.description
-    };
-    $.when(this.project.buildTask(data)).always(result => {
-      let taskCode = result.code;
-      this.excuteTask(taskCode)
-    });
+    this.excuteTask();
   }
 
   /**
    * 执行任务
    */
-  excuteTask(taskCode) {
-    let data = {
-      code: taskCode
-    };
-    $.when(this.project.excuteTask(data)).always(result => {
-    });
+  excuteTask() {
+    this.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'code': this.projectCode}});
   }
-
 }

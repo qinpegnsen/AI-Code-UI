@@ -31,7 +31,12 @@ export class SettingUrl {
       list: '/project/job/list',//（get）查询任务列表
       load: '/project/job/load',//（get）load当前任务
       modify: '/project/job/modify',//（put）修改任务
-
+    },
+    /**
+     * 项目日志管理控制器
+     */
+    projectJobLogsCtrl : {
+      logs: '/project/job/logs/list',//（get）查询项目任务信息集合
     },
     /**
      * 框架技术控制器
@@ -84,6 +89,7 @@ export class SettingUrl {
     project:{
       list:"/main/project",//项目的列表
       detail:"/main/project/detail",//项目的详情
+      logs:"/main/project/logs",//项目的详情
     }
   }
 }

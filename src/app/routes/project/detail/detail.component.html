@@ -63,8 +63,16 @@
       <div nz-col [nzSpan]="2">
         所选技术：
       </div>
-      <div nz-col [nzSpan]="22" *ngFor="let item of framslist;">
+      <div nz-col [nzSpan]="10" *ngFor="let item of framslist;">
         <nz-tag>{{item.frameworks?.name}}</nz-tag>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="2">
+        技术描述：
+      </div>
+      <div nz-col [nzSpan]="10" *ngFor="let item of framslist;">
+        <nz-tag>{{item.frameworks?.description}}</nz-tag>
       </div>
     </div>
   </div>
