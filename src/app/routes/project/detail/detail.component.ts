@@ -22,24 +22,7 @@ export class DetailComponent implements OnInit {
   public framslist: any;    //技术信息
   public repositoryInfo: any;    //技术信息
 
-  public data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    }, {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    }, {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-    }
-  ];
+  public jobList :any= new Array();   //构建历史
 
 
   constructor(public project: ProjectService,
@@ -51,6 +34,7 @@ export class DetailComponent implements OnInit {
     this.projectCode = this.route.snapshot.queryParams['code'];
     $.when(this.project.getDetail(this.projectCode)).always(data => {
       this.projectData = data;
+      this.jobList = data.projectJobList;
       this.code = data.projectSqlList[0].tsql;
       this.framslist = data.projectFramworkList;
       this.repositoryInfo = data.projectRepositoryAccountList[0];
@@ -75,6 +59,13 @@ export class DetailComponent implements OnInit {
    */
   buildTask() {
     this.excuteTask();
+  }
+
+  /**
+   * 跳转到日志页面
+   */
+  linkLogs(code){
+    this.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'code': code}});
   }
 
   /**

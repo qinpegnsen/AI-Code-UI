@@ -23,6 +23,7 @@ export class LogPageComponent implements OnInit ,OnDestroy{
 
   constructor(public projectService: ProjectService,
               public router: Router,
+              public location: Location,
               public routerInfo: ActivatedRoute) {
   }
 
@@ -63,7 +64,7 @@ export class LogPageComponent implements OnInit ,OnDestroy{
         let data = {
           curPage: ++init,
           pageSize: sessionStorage.getItem('code')==me.code?init==2?20:3:3,
-          code: '732932458220707840',//任务编码
+          code: taskCode,//任务编码
         };
         $.when(me.projectService.getLogsList(data)).always(data => {
           sessionStorage.setItem('code',me.code);
@@ -76,6 +77,7 @@ export class LogPageComponent implements OnInit ,OnDestroy{
    * 返回
    */
   goBack() {
-    this.router.navigate([SettingUrl.ROUTERLINK.project.list]);
+    this.location.back();
+    // this.router.navigate([SettingUrl.ROUTERLINK.project.list]);
   }
 }
