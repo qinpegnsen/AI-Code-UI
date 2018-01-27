@@ -65,7 +65,8 @@ export class DetailComponent implements OnInit {
    * 跳转到日志页面
    */
   linkLogs(code){
-    this.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'code': code}});
+    let me=this;
+    me.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'code': code,'home':me.repositoryInfo.home}});
   }
 
   /**

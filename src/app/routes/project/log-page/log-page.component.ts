@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProjectService} from "../project.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {SettingUrl} from "../../../public/setting/setting_url";
 declare var $: any;
 
 @Component({
@@ -11,15 +10,10 @@ declare var $: any;
   styleUrls: ['./log-page.component.css']
 })
 export class LogPageComponent implements OnInit ,OnDestroy{
-  public editorOptions = {
-    theme: 'vs-dark',
-    language: 'sql',
-    scrollBeyondLastLine: false,
-    readOnly: true,
-  };
   public logInfo: any=new Array();          //日志信息
   public code: string;                      //项目编码
   public timer: any;                        //定时器
+  public home: any;                         //仓库的地址,当检测到日志打印完之后跳转到仓库的地址
 
   constructor(public projectService: ProjectService,
               public router: Router,
@@ -30,6 +24,7 @@ export class LogPageComponent implements OnInit ,OnDestroy{
   ngOnInit() {
     let me = this;
     me.code = me.routerInfo.snapshot.queryParams['code'];
+    me.home = me.routerInfo.snapshot.queryParams['home'];
     me.getLog()
   }
 
@@ -78,6 +73,5 @@ export class LogPageComponent implements OnInit ,OnDestroy{
    */
   goBack() {
     this.location.back();
-    // this.router.navigate([SettingUrl.ROUTERLINK.project.list]);
   }
 }
