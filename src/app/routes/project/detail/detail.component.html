@@ -137,7 +137,7 @@
           <nz-badge [nzStatus]="'success'" [nzText]="item.state"></nz-badge>
         </td>
         <td nz-td>
-          <button nz-button [nzType]="'primary'" (click)=linkLogs(item.code)>
+          <button nz-button [nzType]="'primary'" (click)=linkLogs(item.code,item.state)>
             <span>查看日志</span>
           </button>
         </td>

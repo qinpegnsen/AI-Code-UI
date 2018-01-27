@@ -1,7 +1,6 @@
 #log{
   background: #fff;
   min-height:800px;
-  overflow-y:scroll;
   border-radius: 5px;
 }
 #log ngx-monaco-editor{

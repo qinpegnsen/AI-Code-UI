@@ -14,6 +14,7 @@ export class LogPageComponent implements OnInit ,OnDestroy{
   public code: string;                      //项目编码
   public timer: any;                        //定时器
   public home: any;                         //仓库的地址,当检测到日志打印完之后跳转到仓库的地址
+  public state: any;                        //构建历史状态
 
   constructor(public projectService: ProjectService,
               public router: Router,
@@ -25,7 +26,8 @@ export class LogPageComponent implements OnInit ,OnDestroy{
     let me = this;
     me.code = me.routerInfo.snapshot.queryParams['code'];
     me.home = me.routerInfo.snapshot.queryParams['home'];
-    me.getLog()
+    me.state = me.routerInfo.snapshot.queryParams['state'];
+    me.getLog();
   }
 
   /**
@@ -64,8 +66,21 @@ export class LogPageComponent implements OnInit ,OnDestroy{
         $.when(me.projectService.getLogsList(data)).always(data => {
           sessionStorage.setItem('code',me.code);
           me.logInfo.push(data.voList);
+          me.linkHome(data.voList);
         });
       },2000);
+  }
+
+  /**
+   * 判断是否结束跳转到仓库页面
+   */
+  linkHome(data){
+    let me=this;
+    for(let i=0;i<data.length;i++){
+      if(data[i].log=='End'){
+        window.open(me.home)
+      }
+    }
   }
 
   /**
