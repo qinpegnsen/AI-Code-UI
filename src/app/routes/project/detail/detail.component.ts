@@ -41,6 +41,9 @@ export class DetailComponent implements OnInit {
     });
   }
 
+  /**
+   * 跳转到任务列表页面
+   */
   goBack() {
     this.router.navigate(['/main/project']);
   }
@@ -58,21 +61,23 @@ export class DetailComponent implements OnInit {
    * 生成任务
    */
   buildTask() {
-    this.excuteTask();
+    let me=this;
+    me.excuteTask();
   }
 
   /**
    * 跳转到日志页面
    */
-  linkLogs(code){
+  linkLogs(code,home){
     let me=this;
-    me.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'code': code,'home':me.repositoryInfo.home}});
+    me.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'code': code,home:home}});
   }
 
   /**
    * 执行任务
    */
   excuteTask() {
-    this.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'code': this.projectCode}});
+    let me=this;
+    me.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'code': me.projectCode,'home':me.repositoryInfo.home}});
   }
 }
