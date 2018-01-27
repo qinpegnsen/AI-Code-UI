@@ -68,7 +68,6 @@ export class LogPageComponent implements OnInit ,OnDestroy{
       let me = this,init:number=0;
       me.timer=setInterval(()=>{
         if(me.state){
-          console.log("█ me.state ►►►",  me.state);
           let size:string;
           if(me.state=='Completed'||me.state=='Error'||me.state=='Waring'){
             size='999';
