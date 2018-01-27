@@ -12,6 +12,7 @@ declare var $: any;
 export class LogPageComponent implements OnInit ,OnDestroy{
   public logInfo: any=new Array();          //日志信息
   public code: string;                      //项目编码
+  public taskCode: string;                  //任务编码
   public timer: any;                        //定时器
   public home: any;                         //仓库的地址,当检测到日志打印完之后跳转到仓库的地址
   public state: any;                        //构建历史状态
@@ -25,6 +26,7 @@ export class LogPageComponent implements OnInit ,OnDestroy{
   ngOnInit() {
     let me = this;
     me.code = me.routerInfo.snapshot.queryParams['code'];
+    me.taskCode = me.routerInfo.snapshot.queryParams['taskCode'];
     me.home = me.routerInfo.snapshot.queryParams['home'];
     me.state = me.routerInfo.snapshot.queryParams['state'];
     me.getLog();
@@ -38,8 +40,15 @@ export class LogPageComponent implements OnInit ,OnDestroy{
     window.clearInterval(me.timer);
   }
 
+  /**
+   * 执行任务生成任务编码，如果构建历史跳转过来的话,就有任务编码直接调用打印日志的方法
+   */
   getLog() {
     let me=this;
+    if(me.taskCode){
+      me.continueRequest(me.taskCode);
+      return;
+    }
     let data = {
       code: this.code
     };
@@ -56,18 +65,38 @@ export class LogPageComponent implements OnInit ,OnDestroy{
    * @param taskCode
    */
   continueRequest(taskCode){
-      let me = this,init:number=1;
+      let me = this,init:number=0;
       me.timer=setInterval(()=>{
-        let data = {
-          curPage: ++init,
-          pageSize: sessionStorage.getItem('code')==me.code?init==2?20:3:3,
-          code: taskCode,//任务编码
-        };
-        $.when(me.projectService.getLogsList(data)).always(data => {
-          sessionStorage.setItem('code',me.code);
-          me.logInfo.push(data.voList);
-          me.linkHome(data.voList);
-        });
+        if(me.state){
+          console.log("█ me.state ►►►",  me.state);
+          let size:string;
+          if(me.state=='Completed'||me.state=='Error'||me.state=='Waring'){
+            size='999';
+          }else if(me.state=='Create'||me.state=='Executing'){
+            size='20'
+          }
+          let data = {
+            curPage: ++init,
+            pageSize: init==1?size:3,
+            code: taskCode,//任务编码
+          };
+          $.when(me.projectService.getLogsList(data)).always(data => {
+            sessionStorage.setItem('code',me.code);
+            me.logInfo.push(data.voList);
+            me.linkHome(data.voList);
+          });
+        }else{
+          let data = {
+            curPage: ++init,
+            pageSize: sessionStorage.getItem('code')==me.code?init==2?20:3:3,
+            code: taskCode,//任务编码
+          };
+          $.when(me.projectService.getLogsList(data)).always(data => {
+            sessionStorage.setItem('code',me.code);
+            me.logInfo.push(data.voList);
+            me.linkHome(data.voList);
+          });
+        }
       },2000);
   }
 

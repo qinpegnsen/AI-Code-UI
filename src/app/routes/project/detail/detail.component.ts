@@ -70,7 +70,7 @@ export class DetailComponent implements OnInit {
    */
   linkLogs(code,state){
     let me=this;
-    me.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'code': code,'state':state,'home':me.repositoryInfo.home}});
+    me.router.navigate([SettingUrl.ROUTERLINK.project.logs],{'queryParams': {'taskCode': code,'state':state,'home':me.repositoryInfo.home}});
   }
 
   /**

@@ -16,20 +16,18 @@
             <nz-tooltip [nzTitle]="'创建时间'" [nzPlacement]="'topLeft'">
               <span nz-tooltip>{{project.createTime | spliceStr}}</span>
             </nz-tooltip>
-            <span>{{buildNumber}}</span>
+            <span class="ml-20 color-gray">{{project.buildNumber}}</span>
           </div>
-
           <button nz-button [nzType]="'default'" [nzSize]="'small'" class="detail mt ml" (click)="goDetail(project)">
             <i class="anticon anticon-copy"></i>
             <span>详情</span>
           </button>
-          <button nz-button [nzType]="'default'" [nzSize]="'small'" class="detail mt" (click)="goDel(project)">
-            <i class="anticon anticon-copy"></i>
-            <span>删除</span>
-          </button>
-
+          <nz-popconfirm [nzTitle]="'确定要删除这个任务吗？'"  class="detail mt" (nzOnConfirm)="confirm(project)" (nzOnCancel)="cancel()" [nzPlacement]="'topLeft'">
+            <button nz-popconfirm nz-button  [nzSize]="'small'" class="ant-btn">删除</button>
+          </nz-popconfirm>
         </ng-template>
       </nz-card>
     </div>
   </div>
 </div>
+

@@ -5,6 +5,9 @@
     </div>
   </div>
   <div *ngFor="let item of logInfo">
-    <div *ngFor="let item of item">{{item.log}}</div>
+    <div *ngFor="let itemObj of item">
+      <p [innerHtml]="itemObj.log"></p>
+    </div>
   </div>
 </div>
+

@@ -3,6 +3,8 @@ import { ProjectService } from '../project.service';
 import { Router } from '@angular/router';
 import { Page } from './../../../public/util/page';
 import {SettingUrl} from "../../../public/setting/setting_url";
+import {NzMessageService} from "ng-zorro-antd";
+
 declare var $: any;
 
 @Component({
@@ -14,7 +16,9 @@ export class ListComponent implements OnInit {
 
   public projectList: Page = new Page();
 
-  constructor(public project: ProjectService, public router: Router) { }
+  constructor(public project: ProjectService,
+              public router: Router,
+              private message: NzMessageService) { }
 
   ngOnInit() {
     this.queryList();
@@ -25,7 +29,6 @@ export class ListComponent implements OnInit {
    */
   queryList() {
     $.when(this.project.getProjectList()).always(data => {
-      // this._loading = false;//解除锁屏
       this.projectList = data;
     });
   }
@@ -43,14 +46,28 @@ export class ListComponent implements OnInit {
    * @param project
    */
   goDel(project){
+    let me=this;
     let data={
       code:project.code
     };
     $.when(this.project.delPro(data)).always(data => {
-      // this._loading = false;//解除锁屏
-      this.queryList();
-
+      me.queryList();
     });
   }
+
+  /**
+   * 取消
+   */
+  cancel = function () {
+    this.message.info('click cancel')
+  };
+
+  /**
+   * 确认
+   */
+  confirm = (project) => {
+    let me=this;
+   me.goDel(project)
+  };
 
 }
