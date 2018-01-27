@@ -9,8 +9,8 @@ declare var $: any;
   templateUrl: './log-page.component.html',
   styleUrls: ['./log-page.component.css']
 })
-export class LogPageComponent implements OnInit ,OnDestroy{
-  public logInfo: any=new Array();          //日志信息
+export class LogPageComponent implements OnInit, OnDestroy {
+  public logInfo: any = new Array();          //日志信息
   public code: string;                      //项目编码
   public taskCode: string;                  //任务编码
   public timer: any;                        //定时器
@@ -35,8 +35,8 @@ export class LogPageComponent implements OnInit ,OnDestroy{
   /**
    * 组件销毁的时候执行的发方法
    */
-  ngOnDestroy(){
-    let me=this;
+  ngOnDestroy() {
+    let me = this;
     window.clearInterval(me.timer);
   }
 
@@ -44,8 +44,8 @@ export class LogPageComponent implements OnInit ,OnDestroy{
    * 执行任务生成任务编码，如果构建历史跳转过来的话,就有任务编码直接调用打印日志的方法
    */
   getLog() {
-    let me=this;
-    if(me.taskCode){
+    let me = this;
+    if (me.taskCode) {
       me.continueRequest(me.taskCode);
       return;
     }
@@ -53,7 +53,7 @@ export class LogPageComponent implements OnInit ,OnDestroy{
       code: this.code
     };
     $.when(this.projectService.excuteTask(data)).always(result => {
-      if(result){
+      if (result) {
         let taskCode = result.code;
         me.continueRequest(taskCode);
       }
@@ -64,48 +64,62 @@ export class LogPageComponent implements OnInit ,OnDestroy{
    * 持续的请求生成日志
    * @param taskCode
    */
-  continueRequest(taskCode){
-      let me = this,init:number=0;
-      me.timer=setInterval(()=>{
-        if(me.state){
-          let size:string;
-          if(me.state=='Completed'||me.state=='Error'||me.state=='Waring'){
-            size='999';
-          }else if(me.state=='Create'||me.state=='Executing'){
-            size='20'
-          }
+  continueRequest(taskCode) {
+    let me = this;
+    if (me.state) {
+      let size: string;
+      if (me.state == 'Completed' || me.state == 'Error' || me.state == 'Waring') {
+        let size = '999';
+        let init: number = 0;
+        let data = {
+          curPage: ++init,
+          pageSize: size,
+          code: taskCode,//任务编码
+        };
+        $.when(me.projectService.getLogsList(data)).always(data => {
+          sessionStorage.setItem('code', me.code);
+          me.logInfo.push(data.voList);
+        });
+      } else if (me.state == 'Create' || me.state == 'Executing') {
+        me.timer = setInterval(() => {
+          let size = '20';
+          let init: number = 0;
           let data = {
             curPage: ++init,
-            pageSize: init==1?size:3,
+            pageSize: init == 1 ? size : 3,
             code: taskCode,//任务编码
           };
           $.when(me.projectService.getLogsList(data)).always(data => {
-            sessionStorage.setItem('code',me.code);
+            sessionStorage.setItem('code', me.code);
             me.logInfo.push(data.voList);
             me.linkHome(data.voList);
           });
-        }else{
-          let data = {
-            curPage: ++init,
-            pageSize: sessionStorage.getItem('code')==me.code?init==2?20:3:3,
-            code: taskCode,//任务编码
-          };
-          $.when(me.projectService.getLogsList(data)).always(data => {
-            sessionStorage.setItem('code',me.code);
-            me.logInfo.push(data.voList);
-            me.linkHome(data.voList);
-          });
-        }
-      },2000);
+        }, 2000);
+      }
+    } else {
+      let init: number = 0;
+      me.timer = setInterval(() => {
+        let data = {
+          curPage: ++init,
+          pageSize: sessionStorage.getItem('code') == me.code ? init == 2 ? 20 : 3 : 3,
+          code: taskCode,//任务编码
+        };
+        $.when(me.projectService.getLogsList(data)).always(data => {
+          sessionStorage.setItem('code', me.code);
+          me.logInfo.push(data.voList);
+          me.linkHome(data.voList);
+        });
+      }, 2000);
+    }
   }
 
   /**
    * 判断是否结束跳转到仓库页面
    */
-  linkHome(data){
-    let me=this;
-    for(let i=0;i<data.length;i++){
-      if(data[i].log=='End'){
+  linkHome(data) {
+    let me = this;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].log == 'End') {
         window.open(me.home)
       }
     }
