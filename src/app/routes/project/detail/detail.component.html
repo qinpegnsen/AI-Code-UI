@@ -138,7 +138,7 @@
           <nz-badge [nzStatus]="'error'" *ngIf="item.state=='Error'" [nzText]="item.state"></nz-badge>
           <nz-badge [nzStatus]="'warning'" *ngIf="item.state=='Waring'" [nzText]="item.state"></nz-badge>
           <nz-badge [nzStatus]="'processing'" *ngIf="item.state=='Create'" [nzText]="item.state"></nz-badge>
-          <nz-badge [nzStatus]="'default'" *ngIf="item.state=='Executing'" [nzText]="item.state"></nz-badge>
+          <nz-badge [nzStatus]="'processing'" *ngIf="item.state=='Executing'" [nzText]="item.state"></nz-badge>
         </td>
         <td nz-td>
           <button nz-button [nzType]="'primary'" (click)=linkLogs(item.code,item.state)>
