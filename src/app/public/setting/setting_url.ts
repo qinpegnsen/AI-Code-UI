@@ -7,75 +7,75 @@ export class SettingUrl {
      * 基础路径配置
      */
     base: {
-      enum: '/res/enum/',            //获取枚举接口
-      uuid: '/upload/basic/uid'    //获取上传图片的编码
+      enum: '/res/enum.shtml/',            //获取枚举接口
+      uuid: '/upload/basic/uid.shtml'    //获取上传图片的编码
     },
     /**
      * 项目管理控制器
      */
     projectCtrl: {
-      build: '/project/build',//（post）创建项目
-      delete: '/project/delete',//（delete）删除项目
-      init: '/project/init',//（put）执行脚本
-      list: '/project/list',//（get）查询项目信息集合 按照时间顺序倒叙排序
-      load: '/project/load',//（get）查询一个详情信息
-      modify: '/project/modify',//（put）修改项目
+      build: '/project/build.shtml',//（post）创建项目
+      delete: '/project/delete.shtml',//（delete）删除项目
+      init: '/project/init.shtml',//（put）执行脚本
+      list: '/project/list.shtml',//（get）查询项目信息集合 按照时间顺序倒叙排序
+      load: '/project/load.shtml',//（get）查询一个详情信息
+      modify: '/project/modify.shtml',//（put）修改项目
     },
     /**
      * 项目任务管理控制器
      */
     projectJobCtrl: {
-      build: '/project/job/build',//（post）创建任务
-      execute: '/project/job/execute',//（get）执行任务
-      delete: '/project/job/delete',//（delete）删除任务
-      list: '/project/job/list',//（get）查询任务列表
-      load: '/project/job/load',//（get）load当前任务
-      modify: '/project/job/modify',//（put）修改任务
+      build: '/project/job/build.shtml',//（post）创建任务
+      execute: '/project/job/execute.shtml',//（get）执行任务
+      delete: '/project/job/delete.shtml',//（delete）删除任务
+      list: '/project/job/list.shtml',//（get）查询任务列表
+      load: '/project/job/load.shtml',//（get）load当前任务
+      modify: '/project/job/modify.shtml',//（put）修改任务
     },
     /**
      * 项目日志管理控制器
      */
     projectJobLogsCtrl : {
-      logs: '/project/job/logs/list',//（get）查询项目任务信息集合
+      logs: '/project/job/logs/list.shtml',//（get）查询项目任务信息集合
     },
     /**
      * 框架技术控制器
      */
     frameworksCtrl: {
-      build: '/framework/build',//（post）添加
-      delete: '/framework/delete',//（delete）删除
-      list: '/framework/list',//（get）查询信息集合 按照时间顺序倒叙排序
-      load: '/framework/load',//（get）查询一个详情信息
-      modify: '/framework/modify',//（post）修改
+      build: '/framework/build.shtml',//（post）添加
+      delete: '/framework/delete.shtml',//（delete）删除
+      list: '/framework/list.shtml',//（get）查询信息集合 按照时间顺序倒叙排序
+      load: '/framework/load.shtml',//（get）查询一个详情信息
+      modify: '/framework/modify.shtml',//（post）修改
     },
     /**
      * 项目框架技术关联控制器
      */
     projectFramworkCtrl: {
-      add: '/project/framwork/add',//（post）添加项目技术
-      delete: '/project/framwork/delete',//（delete）删除
-      list: '/project/framwork/list',//（get）查询信息集合 按照时间顺序倒叙排序
-      load: '/project/framwork/load',//（get）查询一个详情信息
+      add: '/project/framwork/add.shtml',//（post）添加项目技术
+      delete: '/project/framwork/delete.shtml',//（delete）删除
+      list: '/project/framwork/list.shtml',//（get）查询信息集合 按照时间顺序倒叙排序
+      load: '/project/framwork/load.shtml',//（get）查询一个详情信息
     },
     /**
      * 代码仓库账户管理控制器
      */
     projectRepositoryAccountCtrl: {
-      build: '/project/repository/build',//（post）创建账户
-      delete: '/project/repository/delete',//（delete）删除
-      list: '/project/repository/list',//（get）查询信息集合 按照时间顺序倒叙排序
-      load: '/project/repository/load',//（get）查询一个详情信息
-      modify: '/project/repository/modify',//（put）修改
+      build: '/project/repository/build.shtml',//（post）创建账户
+      delete: '/project/repository/delete.shtml',//（delete）删除
+      list: '/project/repository/list.shtml',//（get）查询信息集合 按照时间顺序倒叙排序
+      load: '/project/repository/load.shtml',//（get）查询一个详情信息
+      modify: '/project/repository/modify.shtml',//（put）修改
     },
     /**
      * 项目sql管理控制器
      */
     projectSqlCtrl: {
-      build: '/project/sql/build',//（post）创建项目sql
-      delete: '/project/sql/delete',//（delete）删除项目sql
-      list: '/project/sql/list',//（get）查询sql信息集合 按照时间顺序倒叙排序
-      load: '/project/sql/load',//（get）查询一个sql详情信息
-      modify: '/project/sql/modify',//（put）修改sql
+      build: '/project/sql/build.shtml',//（post）创建项目sql
+      delete: '/project/sql/delete.shtml',//（delete）删除项目sql
+      list: '/project/sql/list.shtml',//（get）查询sql信息集合 按照时间顺序倒叙排序
+      load: '/project/sql/load.shtml',//（get）查询一个sql详情信息
+      modify: '/project/sql/modify.shtml',//（put）修改sql
     },
   };
   // 路由链接信息

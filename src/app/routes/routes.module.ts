@@ -6,7 +6,7 @@ import {RouterModule} from "@angular/router";
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes,{useHash: true})
   ],
   declarations: [],
   exports: [
