@@ -101,7 +101,7 @@ export class LogPageComponent implements OnInit, OnDestroy {
       me.timer = setInterval(() => {
         let data = {
           curPage: ++init,
-          pageSize: sessionStorage.getItem('code') == me.code ? init == 2 ? 20 : 3 : 3,
+          pageSize: sessionStorage.getItem('code') == me.code ? init == 1 ? 20 : 3 : 3,
           code: taskCode,//任务编码
         };
         $.when(me.projectService.getLogsList(data)).always(data => {
@@ -120,7 +120,8 @@ export class LogPageComponent implements OnInit, OnDestroy {
     let me = this;
     for (let i = 0; i < data.length; i++) {
       if (data[i].log == 'End') {
-        window.open(me.home)
+        window.open(me.home);
+        window.clearInterval(me.timer);
       }
     }
   }
