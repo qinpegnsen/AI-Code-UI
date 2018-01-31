@@ -33,6 +33,9 @@
       <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('englishName')" nzHasFeedback>
         <nz-input formControlName="englishName" [nzPlaceHolder]="'请填写项目英文名(与数据库一致)'" [nzType]="'text'" [nzSize]="'large'">
         </nz-input>
+        <div nz-form-explain class="color-red">
+          注意：项目英文名将作为数据库名使用！
+        </div>
         <div nz-form-explain
              *ngIf="getFormControl('englishName').dirty&&getFormControl('englishName').hasError('required')">
           请填写项目英文名！

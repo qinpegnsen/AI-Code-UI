@@ -59,15 +59,16 @@
     <div class="info_title">技术信息
       <nz-tag [nzColor]="projectData.projectFramworkList?.length?'green':'red'" (click)="skipTo(2,this.projectData.projectFramworkList?.length?'edit':'add')">{{projectData.projectFramworkList?.length?'已配置':'待配置'}}</nz-tag>
     </div>
-    <div nz-row *ngFor="let item of framslist;">
+    <div nz-row *ngFor="let item of framslist;let i=index">
       <div nz-col [nzSpan]="2">
-        所选技术：
+        <span *ngIf="i==0">所选技术：</span>
       </div>
       <div nz-col [nzSpan]="10">
         <nz-tag>{{item.frameworks?.name}}</nz-tag>
       </div>
       <div nz-col [nzSpan]="12">
-        <nz-tag>{{item.frameworks?.description}}</nz-tag>
+        <span>{{item.frameworks?.description}}</span>
+        <!--<nz-tag class="w100"></nz-tag>-->
       </div>
     </div>
   </div>

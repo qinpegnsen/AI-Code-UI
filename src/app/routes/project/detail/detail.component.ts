@@ -35,10 +35,21 @@ export class DetailComponent implements OnInit {
     $.when(this.project.getDetail(this.projectCode)).always(data => {
       this.projectData = data;
       this.jobList = data.projectJobList;
-      this.code = data.projectSqlList[0].tsql;
+      this.code = this.enable(data.projectSqlList).tsql;
       this.framslist = data.projectFramworkList;
-      this.repositoryInfo = data.projectRepositoryAccountList[0];
+      this.repositoryInfo = this.enable(data.projectRepositoryAccountList);
     });
+  }
+
+  /**
+   * 过滤出能够使用的
+   */
+  enable(data){
+    for(let i=0;i<data.length;i++){
+      if(data[i].state=='Enable'){
+        return data[i]
+      }
+    }
   }
 
   /**

@@ -36,6 +36,10 @@
     color: #49a9ee;
     border-color: #49a9ee;
 }
+.myBb{
+  border-color: #cc1635 !important;
+  color: #cc1635 !important;
+}
 .myCss{
   float:right;
 }

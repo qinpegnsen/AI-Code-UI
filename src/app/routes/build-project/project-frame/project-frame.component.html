@@ -8,8 +8,11 @@
 <!--引导语 end-->
 
 <!--技术框架 start-->
-<div class="mt-20 mb-20">
-  <nz-checkbox-group [(ngModel)]="frames"></nz-checkbox-group>
+<div *ngFor="let item of frames" class="mt mb">
+  <label nz-checkbox [(ngModel)]="item.isShow">
+    <span class="inlineBlock w400 h100">{{item.name}}</span>
+  </label>
+  <div class="myDiv">{{item.description}}</div>
 </div>
 <!--技术框架 end-->
 

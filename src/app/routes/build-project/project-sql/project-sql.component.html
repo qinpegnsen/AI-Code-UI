@@ -2,7 +2,7 @@
 <div class="page-msg-red mt-20">
   <p class="title">{{guideLang.tipTitle}}</p>
   <ul>
-    <li *ngFor="let item of guideLang.message.proInfo">{{item}}</li>
+    <li *ngFor="let item of guideLang.message.proSql">{{item}}</li>
   </ul>
 </div>
 <!--引导语 end-->
@@ -18,7 +18,7 @@
   </button>
   <button nz-button [nzSize]="'large'" class="thc-btn-w"
           (click)="nextStep($event)">
-    <span>保存并进入下一步</span>
+    <span>初始化数据库并进入下一步</span>
   </button>
 </div>
 <!--操作按钮 end-->

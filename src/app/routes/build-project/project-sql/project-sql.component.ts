@@ -133,7 +133,7 @@ export class ProjectSqlComponent implements OnInit {
     };
     $.when(me.buildProjectService.projectInit(data)).always(data => {
       me._loading = false;//解除锁屏
-      if (true) {
+      if (data) {
         let type=me.buildProInfo.projectFramworkList.length?'edit':'add';
         me.buildProjectService.routerSkip(2,type);
       }

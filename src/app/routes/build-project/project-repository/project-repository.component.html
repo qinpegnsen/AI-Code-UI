@@ -2,7 +2,9 @@
 <div class="page-msg-red mt-20">
   <p class="title">{{guideLang.tipTitle}}</p>
   <ul>
-    <li *ngFor="let item of guideLang.message.proRepository">{{item}}</li>
+    <ng-container *ngFor="let item of guideLang.message.proRepository">
+      <li [innerHtml]="item"></li>
+    </ng-container>
   </ul>
 </div>
 <!--引导语 end-->
@@ -48,7 +50,7 @@
       </div>
 
       <div nz-col [nzSpan]="8" nz-form-control>
-        <nz-radio-group  [formControl]="validateForm.controls['type']">
+        <nz-radio-group [formControl]="validateForm.controls['type']">
           <label nz-radio [nzValue]="'Git'">
             <span>Git</span>
           </label>
@@ -79,12 +81,15 @@
         <label nz-form-item-required>仓库说明</label>
       </div>
       <div nz-col [nzSpan]="8" nz-form-control [nzValidateStatus]="getFormControl('description')" nzHasFeedback>
-        <nz-input formControlName="description" [nzType]="'textarea'"  [nzRows]="'4'" [nzPlaceHolder]="'请填写仓库说明'" [nzType]="'text'" [nzSize]="'large'">
+        <nz-input formControlName="description" [nzType]="'textarea'" [nzRows]="'4'" [nzPlaceHolder]="'请填写仓库说明'"
+                  [nzType]="'text'" [nzSize]="'large'">
         </nz-input>
-        <div nz-form-explain *ngIf="getFormControl('description').dirty&&getFormControl('description').hasError('required')">
+        <div nz-form-explain
+             *ngIf="getFormControl('description').dirty&&getFormControl('description').hasError('required')">
           请填写仓库说明！
         </div>
-        <div nz-form-explain *ngIf="getFormControl('description').dirty&&getFormControl('description').hasError('maxlength')">
+        <div nz-form-explain
+             *ngIf="getFormControl('description').dirty&&getFormControl('description').hasError('maxlength')">
           输入的长度不能超过50位！
         </div>
       </div>
