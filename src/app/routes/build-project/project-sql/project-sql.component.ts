@@ -58,7 +58,7 @@ export class ProjectSqlComponent implements OnInit {
    */
   loadProSql() {
     let me = this;
-    if (me.routerProjectCode || sessionStorage.getItem('proSqlCode')) {
+    if (me.routerProjectCode || sessionStorage.getItem('proSqlCode')||sessionStorage.getItem('projectCode')) {
       let data = {
         code: me.buildProInfo.projectSqlList[0].code || sessionStorage.getItem('proSqlCode'),
         projectCode: me.routerProjectCode || sessionStorage.getItem('projectCode')
