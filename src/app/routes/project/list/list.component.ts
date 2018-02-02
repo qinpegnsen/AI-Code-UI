@@ -56,13 +56,6 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * 取消
-   */
-  cancel = function () {
-    this.message.info('click cancel')
-  };
-
-  /**
    * 确认
    */
   confirm = (project) => {

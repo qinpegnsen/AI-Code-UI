@@ -31,7 +31,7 @@ export class Setting {
       ],
       proRepository:[
         '账户密码是git或者是svn的账户密码，必须具备提交代码的权限',
-        '仓库地址为完成的http地址，如：<a href="https://gitee.com/helixin/AI-Code.git" target="_blank">仓库地址</a>',
+        '仓库地址为完成的http或者https地址，如：<a href="https://gitee.com/helixin/AI-Code.git" target="_blank">https://gitee.com/helixin/AI-Code.git</a>',
       ]
     }
   };

@@ -173,7 +173,6 @@ export class BuildProjectService {
           defer.resolve(res.data);
         } else {
           me._notification.error(`出错了`, res.info);
-          defer.reject(res.data);
         }
       },
       error: () => {

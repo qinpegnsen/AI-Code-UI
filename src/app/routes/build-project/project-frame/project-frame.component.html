@@ -8,11 +8,13 @@
 <!--引导语 end-->
 
 <!--技术框架 start-->
-<div *ngFor="let item of frames" class="mt mb">
-  <label nz-checkbox [(ngModel)]="item.isShow">
-    <span class="inlineBlock w400 h100">{{item.name}}</span>
-  </label>
-  <div class="myDiv">{{item.description}}</div>
+<div class="mt-20 mb-20">
+  <ng-container *ngFor="let item of frames">
+    <label nz-checkbox [(ngModel)]="item.isShow">
+      <span class="inlineBlock w400 h100">{{item.name}}</span>
+    </label>
+    <div class="myDiv mb-5">{{item.description}}</div>
+  </ng-container>
 </div>
 <!--技术框架 end-->
 

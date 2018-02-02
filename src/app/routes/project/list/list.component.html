@@ -22,7 +22,7 @@
             <i class="anticon anticon-copy"></i>
             <span>详情</span>
           </button>
-          <nz-popconfirm [nzTitle]="'确定要删除这个任务吗？'"  class="detail mt" (nzOnConfirm)="confirm(project)" (nzOnCancel)="cancel()" [nzPlacement]="'topLeft'">
+          <nz-popconfirm [nzTitle]="'确定要删除这个任务吗？'"  class="detail mt" (nzOnConfirm)="confirm(project)"  [nzPlacement]="'topLeft'">
             <button nz-popconfirm nz-button  [nzSize]="'small'" class="myBb">删除</button>
           </nz-popconfirm>
         </ng-template>

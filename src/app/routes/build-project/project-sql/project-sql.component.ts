@@ -18,8 +18,8 @@ export class ProjectSqlComponent implements OnInit {
   _loading: boolean = false;                        //查询时锁屏,默认关闭
   guideLang: any = Setting.PAGEMSG;                  //引导语
   type: string;                                     //路由携带的参数
-  buildProInfo:any;                                   //当前项目的信息
-  routerProjectCode:string;                           //路由传递过来的项目的编码
+  buildProInfo: any;                                   //当前项目的信息
+  routerProjectCode: string;                           //路由传递过来的项目的编码
   constructor(public steps: ProjectStepsComponent,
               public routeInfo: ActivatedRoute,
               public buildProjectService: BuildProjectService) {
@@ -36,16 +36,16 @@ export class ProjectSqlComponent implements OnInit {
   /**
    * 检查上一步是否填写，如果没有跳回到上一步
    */
-  spectPreStep(){
-    let me=this;
-    if(me.routerProjectCode){
-      sessionStorage.setItem('projectCode',me.routerProjectCode)
+  spectPreStep() {
+    let me = this;
+    if (me.routerProjectCode) {
+      sessionStorage.setItem('projectCode', me.routerProjectCode)
     }
-    let data={
-      code:me.routerProjectCode||sessionStorage.getItem('projectCode')
+    let data = {
+      code: me.routerProjectCode || sessionStorage.getItem('projectCode')
     };
     $.when(me.buildProjectService.loadProject(data)).done(result => {
-      me.buildProInfo=result;
+      me.buildProInfo = result;
       if (me.type == 'edit') {
         me.loadProSql();
       }
@@ -58,10 +58,10 @@ export class ProjectSqlComponent implements OnInit {
    */
   loadProSql() {
     let me = this;
-    if (me.routerProjectCode||sessionStorage.getItem('proSqlCode')) {
+    if (me.routerProjectCode || sessionStorage.getItem('proSqlCode')) {
       let data = {
-        code: me.buildProInfo.projectSqlList[0].code||sessionStorage.getItem('proSqlCode'),
-        projectCode: me.routerProjectCode||sessionStorage.getItem('projectCode')
+        code: me.buildProInfo.projectSqlList[0].code || sessionStorage.getItem('proSqlCode'),
+        projectCode: me.routerProjectCode || sessionStorage.getItem('projectCode')
       };
       $.when(me.buildProjectService.loadSql(data)).done(data => {
         me.code = data.tsql;
@@ -89,7 +89,7 @@ export class ProjectSqlComponent implements OnInit {
     switch (me.type) {
       case 'add': {
         let data = {
-          projectCode: me.routerProjectCode||sessionStorage.getItem('projectCode'),//	项目编码
+          projectCode: me.routerProjectCode || sessionStorage.getItem('projectCode'),//	项目编码
           tsql: me.code//sql脚本
         };
         //关联sql
@@ -105,16 +105,16 @@ export class ProjectSqlComponent implements OnInit {
       }
       case 'edit': {
         let data = {
-          code:me.buildProInfo.projectSqlList[0].code||sessionStorage.getItem('proSqlCode'),//	tsql编码
+          code: me.buildProInfo.projectSqlList[0].code || sessionStorage.getItem('proSqlCode'),//	tsql编码
           tsql: me.code//sql脚本
         };
         sessionStorage.setItem('proSqlCode', data.code);//存储sql code
         //关联sql
         $.when(me.buildProjectService.modifySql(data)).always(data => {
           me._loading = false;//解除锁屏
-          if(true) {
+          if (data) {
             //执行脚本
-            me.initSql(me.routerProjectCode||sessionStorage.getItem('projectCode'));
+            me.initSql(me.routerProjectCode || sessionStorage.getItem('projectCode'));
           }
         });
         break;
@@ -131,12 +131,10 @@ export class ProjectSqlComponent implements OnInit {
     let data = {
       code: code,//	项目编码
     };
-    $.when(me.buildProjectService.projectInit(data)).always(data => {
+    $.when(me.buildProjectService.projectInit(data)).done(data => {
       me._loading = false;//解除锁屏
-      if (data) {
-        let type=me.buildProInfo.projectFramworkList.length?'edit':'add';
-        me.buildProjectService.routerSkip(2,type);
-      }
+      let type = me.buildProInfo.projectFramworkList.length ? 'edit' : 'add';
+      me.buildProjectService.routerSkip(2, type);
     })
   }
 }

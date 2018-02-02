@@ -31,9 +31,9 @@ export class ProjectInfoComponent implements OnInit {
       copyright: ['', [Validators.required, Validators.maxLength(500)]],
       author: ['', [Validators.required, Validators.maxLength(50)]],
       phone: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.maxLength(50)]],
+      description: ['', [Validators.required,Validators.maxLength(50)]],
       language: ['', [Validators.maxLength(50)]],
-      basePackage: ['', [Validators.maxLength(50)]],
+      basePackage: ['', [Validators.required,Validators.maxLength(50)]],
     });
     this.steps.current = 0;//添加项目的进度条
   }
@@ -82,9 +82,9 @@ export class ProjectInfoComponent implements OnInit {
           copyright: [data.copyright, [Validators.required, Validators.maxLength(500)]],
           author: [data.author, [Validators.required, Validators.maxLength(50)]],
           phone: [data.phone, [Validators.required, Validators.maxLength(50)]],
-          description: [data.description, [Validators.maxLength(50)]],
+          description: [data.description, [Validators.required,Validators.maxLength(50)]],
           language: [data.language, [Validators.maxLength(50)]],
-          basePackage: [data.basePackage, [Validators.maxLength(50)]],
+          basePackage: [data.basePackage, [Validators.required,Validators.maxLength(50)]],
         });
       })
     }
