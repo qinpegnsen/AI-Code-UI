@@ -76,9 +76,10 @@ export class ProjectRepositoryComponent implements OnInit {
    */
   public loadRepository() {
     let me = this;
-    if(me.buildProInfo.projectRepositoryAccountList[0].code||sessionStorage.getItem('repositoryCode')){
+    let code=me.enable(me.buildProInfo.projectRepositoryAccountList).code;
+    if(code||sessionStorage.getItem('repositoryCode')){
       let data={
-        code:me.buildProInfo.projectRepositoryAccountList[0].code||sessionStorage.getItem('repositoryCode')
+        code:code||sessionStorage.getItem('repositoryCode')
       };
       $.when(me.buildProjectService.loadRepository(data)).done(data => {
         me.validateForm = me.fb.group({
@@ -89,6 +90,17 @@ export class ProjectRepositoryComponent implements OnInit {
           description: [data.description, [Validators.required,Validators.maxLength(100)]],
         });
       })
+    }
+  }
+
+  /**
+   * 过滤出能够使用的
+   */
+  enable(data){
+    for(let i=0;i<data.length;i++){
+      if(data[i].state=='Enable'){
+        return data[i]
+      }
     }
   }
 
@@ -135,9 +147,10 @@ export class ProjectRepositoryComponent implements OnInit {
         break;
       }
       case 'edit':{
+        let item=me.enable(me.buildProInfo.projectRepositoryAccountList);
         validateForm.value['projectCode']=me.routerProjectCode||sessionStorage.getItem('projectCode');
-        validateForm.value['code']=me.buildProInfo.projectRepositoryAccountList[0].code;//版本库的编码
-        validateForm.value['state']=me.buildProInfo.projectRepositoryAccountList[0].state;//版本库状态
+        validateForm.value['code']=item.code;//版本库的编码
+        validateForm.value['state']=item.state;//版本库状态
         $.when(me.buildProjectService.modifyRepository(validateForm.value)).always(data => {
           me._loading = false;//解除锁屏
           if (data) {

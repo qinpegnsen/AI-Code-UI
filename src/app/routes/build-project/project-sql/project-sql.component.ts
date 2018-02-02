@@ -59,13 +59,25 @@ export class ProjectSqlComponent implements OnInit {
   loadProSql() {
     let me = this;
     if (me.routerProjectCode || sessionStorage.getItem('proSqlCode')||sessionStorage.getItem('projectCode')) {
+      let code = this.enable(me.buildProInfo.projectSqlList).code;
       let data = {
-        code: me.buildProInfo.projectSqlList[0].code || sessionStorage.getItem('proSqlCode'),
+        code: code || sessionStorage.getItem('proSqlCode'),
         projectCode: me.routerProjectCode || sessionStorage.getItem('projectCode')
       };
       $.when(me.buildProjectService.loadSql(data)).done(data => {
         me.code = data.tsql;
       })
+    }
+  }
+
+  /**
+   * 过滤出能够使用的
+   */
+  enable(data){
+    for(let i=0;i<data.length;i++){
+      if(data[i].state=='Enable'){
+        return data[i]
+      }
     }
   }
 
@@ -104,8 +116,9 @@ export class ProjectSqlComponent implements OnInit {
         break;
       }
       case 'edit': {
+        let code = this.enable(me.buildProInfo.projectSqlList).code;
         let data = {
-          code: me.buildProInfo.projectSqlList[0].code || sessionStorage.getItem('proSqlCode'),//	tsql编码
+          code: code || sessionStorage.getItem('proSqlCode'),//	tsql编码
           tsql: me.code//sql脚本
         };
         sessionStorage.setItem('proSqlCode', data.code);//存储sql code

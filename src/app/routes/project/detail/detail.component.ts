@@ -32,7 +32,6 @@ export class DetailComponent implements OnInit {
     this.projectCode = this.route.snapshot.queryParams['code'];
     $.when(this.project.getDetail(this.projectCode)).always(data => {
       this.projectData = data;
-      console.log("█ data ►►►",  data);
       this.jobList = data.projectJobList;
       this.code = this.enable(data.projectSqlList).tsql;
       this.framslist = data.projectFramworkList;
