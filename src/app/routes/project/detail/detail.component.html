@@ -112,14 +112,14 @@
     </div>
   </div>
   <div class="warehouse_info" *ngIf="jobList.length>0">
-    <div class="info_title">下载地址</div>
+    <div class="info_title">下载项目</div>
     <div nz-row>
       <div nz-col [nzSpan]="24">
         <div nz-col [nzSpan]="2">
-          地址连接：
+          项目源码：
         </div>
         <div nz-col [nzSpan]="20">
-          <a href="{{projectData.downloadUrl}}" target="_blank">{{projectData.downloadUrl}}</a>
+          <a href="{{projectData.downloadUrl}}" target="_blank">{{projectData.englishName}}</a>
         </div>
       </div>
     </div>
