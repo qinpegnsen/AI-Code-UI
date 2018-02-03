@@ -20,6 +20,7 @@ export class SettingUrl {
       list: '/project/list.shtml',//（get）查询项目信息集合 按照时间顺序倒叙排序
       load: '/project/load.shtml',//（get）查询一个详情信息
       modify: '/project/modify.shtml',//（put）修改项目
+      path: '/project/scan/path.shtml',//（get）查询文件路径
     },
     /**
      * 项目任务管理控制器

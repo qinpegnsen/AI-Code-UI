@@ -6,11 +6,13 @@ import { DetailComponent } from './detail/detail.component';
 import { ProjectService } from './project.service';
 import {SpliceStrPipe} from "../../public/pipes/splice-str.pipe";
 import { LogPageComponent } from './log-page/log-page.component';
+import { SourceCodeComponent } from './source-code/source-code.component';
 
 const routes: Routes = [
   {path: '', component: ListComponent},
   {path: 'detail', component: DetailComponent},
-  {path: 'logs', component: LogPageComponent}
+  {path: 'logs', component: LogPageComponent},
+  {path: 'source', component: SourceCodeComponent},
 ];
 
 @NgModule({
@@ -24,6 +26,7 @@ const routes: Routes = [
     DetailComponent,
     SpliceStrPipe,
     LogPageComponent,
-    LogPageComponent]
+    LogPageComponent,
+    SourceCodeComponent]
 })
 export class ProjectModule { }

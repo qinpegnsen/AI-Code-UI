@@ -99,7 +99,7 @@
         仓库地址：
       </div>
       <div nz-col [nzSpan]="22">
-        <a [href]="repositoryInfo?.home" target="_blank" class="myLink">{{repositoryInfo?.home}}</a>
+        <a [href]="repositoryInfo?.home" target="_blank" class="myLink" title="仓库地址">{{repositoryInfo?.home}}</a>
       </div>
     </div>
     <div nz-row>
@@ -118,8 +118,11 @@
         <div nz-col [nzSpan]="2">
           项目源码：
         </div>
-        <div nz-col [nzSpan]="20">
-          <a href="{{projectData.downloadUrl}}" target="_blank">{{projectData.englishName}}</a>
+        <div nz-col [nzSpan]="2">
+          <a href="{{projectData.downloadUrl}}" target="_blank" class="underline" title="下载源码">下载源码</a>
+        </div>
+        <div nz-col [nzSpan]="2">
+          <a [routerLink]="'/main/project/source'"  target="_blank" class="underline" title="查看源码" [queryParams]="{code:projectCode,filePath:projectData?.englishName}">查看源码</a>
         </div>
       </div>
     </div>

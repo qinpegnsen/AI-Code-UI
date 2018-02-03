@@ -169,4 +169,27 @@ export class ProjectService {
         break;
     }
   }
+
+  /**
+   * 查询文件路径
+   * requestDate: any 传递的数据
+   */
+  getSourceCode(requestDate: any){
+    let me = this, defer = $.Deferred(); //封装异步请求结果
+    AjaxService.get({
+      url: SettingUrl.URL.projectCtrl.path,
+      data: requestDate,
+      success: (res) => {
+        if (res.success) {
+          defer.resolve(res.data);
+        } else {
+          me._notification.error(`出错了`, res.info)
+        }
+      },
+      error: () => {
+        me._notification.error(`出错了`, '失败，请稍后重试')
+      }
+    });
+    return defer.promise();
+  }
 }

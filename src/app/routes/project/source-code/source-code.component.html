@@ -1,0 +1,24 @@
+<p class="mb font16">【{{filePath}}】项目源码</p>
+<div class="source">
+  <button nz-button [nzType]="'primary'" (click)="goBack()" class="fr">返回</button>
+  <nz-breadcrumb [nzSeparator]="'>'" class="mt-5 mb-5">
+    <nz-breadcrumb-item *ngFor="let item of paths;let i=index;">
+      <span (click)="slicePaths(item.filePath,item.type,i)">{{item.filePath}}</span>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <ng-container *ngIf="!sourceCode">
+    <p *ngIf="paths.length>1" (click)="back()" class="myHeight">
+      <i class="anticon anticon-rollback"></i>
+    </p>
+    <div *ngFor="let item of filePathData;let i=index;">
+      <p (click)="addPaths(item.filePath,item.type)" class="myHeight">
+        <i *ngIf="item.type=='Directory'" class="anticon anticon-folder"></i>
+        <i *ngIf="item.type=='File'" class="anticon anticon-file"></i>
+        <span>{{item.filePath}}</span>
+      </p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="sourceCode">
+    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="sourceCode"></ngx-monaco-editor>
+  </ng-container>
+</div>
