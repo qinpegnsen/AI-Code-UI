@@ -8,7 +8,10 @@
 <!--引导语 end-->
 
 <!--sql start-->
-<ngx-monaco-editor  class="my-code-editor mt-20 mb-20" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+<div id="myId">
+  <ngx-monaco-editor class="my-code-editor mt-20 mb-20" [options]="editorOptions"
+                     [(ngModel)]="code"></ngx-monaco-editor>
+</div>
 <!--sql end-->
 
 <!--操作按钮 start-->

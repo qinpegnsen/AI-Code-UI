@@ -1,10 +1,4 @@
-:host /deep/ .monaco-editor{
-  height:1000px !important;
-}
-:host /deep/ .monaco-editor .overflow-guard{
-  height:1000px !important;
-  overflow-y:auto;
-}
-.my-code-editor{
- height: calc(1000px);
+#myId ngx-monaco-editor{
+  width: 100%;
+  height: 1000px;
 }
