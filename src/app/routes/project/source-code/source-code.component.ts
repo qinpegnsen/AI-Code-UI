@@ -53,10 +53,10 @@ export class SourceCodeComponent implements OnInit {
     };
     $.when(me.project.getSourceCode(data)).always(result => {
       if (result) {
-        let resetResult = me.resetData(result);
         if (type == 'File') {
-          me.sourceCode = resetResult;
+          me.sourceCode = result;
         } else {
+          let resetResult = me.resetData(result);
           me.filePathData = resetResult;
         }
       }
