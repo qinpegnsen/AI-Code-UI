@@ -5,6 +5,7 @@ import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ImgErrDirective} from "../public/directives/img-err.directive";
 import {StateNamePipe} from "../public/pipes/state-name.pipe";
+import {PathPipe} from "../public/pipes/path.pipe";
 import {MonacoEditorModule} from "ngx-monaco-editor";
 
 @NgModule({
@@ -17,7 +18,8 @@ import {MonacoEditorModule} from "ngx-monaco-editor";
   ],
   declarations: [
     StateNamePipe,          //将状态值转为对应状态名得管道
-    ImgErrDirective         //图片加载失败时，加载默认图片
+    ImgErrDirective,         //图片加载失败时，加载默认图片
+    PathPipe              //路径截取的管道
   ],
   providers: [],
   exports: [
@@ -28,7 +30,8 @@ import {MonacoEditorModule} from "ngx-monaco-editor";
     NgZorroAntdModule,      //zorroUI库
     StateNamePipe,          //将状态值转为对应状态名得管道
     ImgErrDirective,         //图片加载失败时，加载默认图片
-    MonacoEditorModule  //代码编辑模块
+    MonacoEditorModule,  //代码编辑模块
+    PathPipe           //路径截取的管道
   ]
 })
 export class SharedModule {

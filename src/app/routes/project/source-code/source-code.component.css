@@ -1,10 +1,16 @@
 .myHeight{
   height:30px;line-height: 30px;
-  border-bottom:1px solid #e4dede;
+  border-bottom:1px dashed #e4dede;
 }
 .source{
   background: #fff;
   padding: 20px;
   border-radius: 5px;
+  min-height:500px;
 }
-
+.myClass{
+  color:#108ee9;
+}
+.hand{
+  cursor:pointer !important;
+}

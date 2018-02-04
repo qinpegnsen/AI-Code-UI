@@ -13,7 +13,7 @@ import {Page} from "./util/page";
     AjaxService,          //ajax服务
     PatternService,       //正则
     Page,                 //分页信息
-    Setting               //基本属性配置
+    Setting               //基本�PathSliceDirective��PathPipe性配置
   ],
   //声明
   declarations: []

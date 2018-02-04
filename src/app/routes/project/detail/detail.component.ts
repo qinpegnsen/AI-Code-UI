@@ -29,13 +29,16 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectCode = this.route.snapshot.queryParams['code'];
-    $.when(this.project.getDetail(this.projectCode)).always(data => {
-      this.projectData = data;
-      this.jobList = data.projectJobList;
-      this.code = this.enable(data.projectSqlList).tsql;
-      this.framslist = data.projectFramworkList;
-      this.repositoryInfo = this.enable(data.projectRepositoryAccountList);
+    let me=this;
+    me.projectCode = me.route.snapshot.queryParams['code'];
+    $.when(me.project.getDetail(me.projectCode)).always(data => {
+      me.projectData = data;
+      sessionStorage.setItem('projectName',me.projectData.name);
+      sessionStorage.setItem('description',me.projectData.description);
+      me.jobList = data.projectJobList;
+      me.code = me.enable(data.projectSqlList).tsql;
+      me.framslist = data.projectFramworkList;
+      me.repositoryInfo = me.enable(data.projectRepositoryAccountList);
     });
   }
 
