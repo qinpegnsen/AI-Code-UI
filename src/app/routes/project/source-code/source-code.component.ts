@@ -54,6 +54,19 @@ export class SourceCodeComponent implements OnInit {
       code: me.code,
       filePath: filePath || me.filePath
     };
+    let index=data.filePath.lastIndexOf('.');
+    if(index!=-1){
+      let slicePath=data.filePath.slice(index+1);
+      if(slicePath=='java'){
+        me.editorOptions.language='java';
+      }else if(slicePath=='js'){
+        me.editorOptions.language='javascript';
+      }else if(slicePath=='sql'){
+        me.editorOptions.language='sql';
+      }else{
+        me.editorOptions.language='text/plain';
+      }
+    }
     $.when(me.project.getSourceCode(data)).always(result => {
       if (result) {
         if (type == 'File') {
