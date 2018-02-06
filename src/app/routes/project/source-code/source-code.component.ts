@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../project.service";
 import {Location} from "@angular/common";
+import {isArray} from "util";
+import {NzNotificationService} from "ng-zorro-antd";
 declare var $: any;
 
 @Component({
@@ -27,6 +29,7 @@ export class SourceCodeComponent implements OnInit {
 
   constructor(public routerInfo: ActivatedRoute,
               public location: Location,
+              public _notification: NzNotificationService,
               public router: Router,
               public project: ProjectService) {
   }
@@ -35,8 +38,8 @@ export class SourceCodeComponent implements OnInit {
     let me = this;
     me.code = me.routerInfo.snapshot.queryParams['code'];
     me.filePath = me.routerInfo.snapshot.queryParams['filePath'];
-    me.projectName=sessionStorage.getItem('projectName');
-    me.description=sessionStorage.getItem('description');
+    me.projectName = sessionStorage.getItem('projectName');
+    me.description = sessionStorage.getItem('description');
     let obj = {type: 'Directory', filePath: me.filePath};
     me.paths.push(obj);
     me.getSourceCode();
@@ -56,8 +59,7 @@ export class SourceCodeComponent implements OnInit {
         if (type == 'File') {
           me.sourceCode = result;
         } else {
-          let resetResult = me.resetData(result);
-          me.filePathData = resetResult;
+          me.filePathData = me.resetData(result);
         }
       }
     });
@@ -77,15 +79,20 @@ export class SourceCodeComponent implements OnInit {
    * 重组数据（文件夹和文件在一块）
    */
   resetData(result) {
-    let directory = new Array(), file = new Array(),me=this;
-    for (let i = 0; i < result.length; i++) {
-      if (result[i].type == 'Directory') {
-        directory.push(result[i])
-      } else {
-        file.push(result[i])
+    let directory = new Array(), file = new Array(), me = this;
+    if(isArray(result)){
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].type == 'Directory') {
+          directory.push(result[i])
+        } else {
+          file.push(result[i])
+        }
       }
+      return directory.concat(file);
+    }else {
+      me._notification.info(`温馨提示`, '请先进行构建');
+      me.goBack();
     }
-    return directory.concat(file);
   }
 
   /**

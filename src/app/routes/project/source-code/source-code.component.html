@@ -1,7 +1,7 @@
 <p class="mb font16">【{{projectName}}】{{description}}</p>
 <div class="source">
   <button nz-button [nzType]="'primary'" (click)="goBack()" class="fr">返回</button>
-  <nz-breadcrumb [nzSeparator]="'>'" class="mt-5 mb-5">
+  <nz-breadcrumb [nzSeparator]="'/'" class="mt-5 mb-5">
     <nz-breadcrumb-item *ngFor="let item of paths;let i=index;" class="hand">
       <span (click)="slicePaths(item.filePath,item.type,i)">{{item.filePath |path}}</span>
     </nz-breadcrumb-item>

@@ -16,5 +16,8 @@
 }
 #myId ngx-monaco-editor{
   width: 100%;
-  height: 500px;
+  height: 800px;
+}
+:host /deep/ .ant-breadcrumb-separator{
+  margin: 0px !important;
 }
