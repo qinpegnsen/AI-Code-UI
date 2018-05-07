@@ -20,11 +20,15 @@ export class AjaxService {
 
   //post方式提交，一般用于新增对象
   public static post(config) {
-    let _this = this;
+    let _this = this, token = sessionStorage.getItem("token");
     if (!config) {
       console.log('ajax调用参数不能为空');
       return;
     }
+
+    console.log("config.data---",config.data);
+
+    config.data ? (config.data.token = token) : (config.data = {}, config.data.token = token); //每次请求时携带token
     var async = true, method = 'post', dataType = 'json';
     if (!config.hasOwnProperty('async')) config.async = async;
     if (!config.method) config.method = method;
@@ -42,8 +46,8 @@ export class AjaxService {
       if (config.mask === true) Util.hideMask();//隐藏遮罩层
       //过滤登录
       if (xhr.getResponseHeader("serverError") || xhr.getResponseHeader("serverError") === "sessionOut") {
-        //TODO 修改过滤后路由跳转路径
         // _this.route.navigate(['/pages/login'], {replaceUrl: true}); //路由跳转
+        window.location.href = ""; //去登录页面
       } else {
         if (typeof success === "function") {
           success(result, status, xhr);

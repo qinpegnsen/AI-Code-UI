@@ -29,6 +29,14 @@ export const routes = [
       {path: 'home', loadChildren: './home/home.module#HomeModule'}
     ]
   },
+  {
+    path: 'login',
+    component: PageComponent,
+    children: [
+      {path: '', redirectTo: '/login/index', pathMatch: 'full'},
+      {path: 'index', loadChildren: './login/login.module#LoginModule'}
+    ]
+  },
   // 路由指向找不到时，指向这里
-  {path: '**', redirectTo: '/main/project'}
+  {path: '**', redirectTo: '/login/index'}
 ];

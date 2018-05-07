@@ -36,7 +36,7 @@ export class SettingUrl {
     /**
      * 项目日志管理控制器
      */
-    projectJobLogsCtrl : {
+    projectJobLogsCtrl: {
       logs: '/project/job/logs/list.shtml',//（get）查询项目任务信息集合
     },
     /**
@@ -78,6 +78,13 @@ export class SettingUrl {
       load: '/project/sql/load.shtml',//（get）查询一个sql详情信息
       modify: '/project/sql/modify.shtml',//（put）修改sql
     },
+    /**
+     * 登录注册
+     */
+    login: {
+      signin: '/login/signin.shtml',//登录
+      reg: '/login/reg.shtml'//注册
+    }
   };
   // 路由链接信息
   static ROUTERLINK: any = {
@@ -87,10 +94,14 @@ export class SettingUrl {
       proRepository: "/main/buildPro/proSteps/proRepository", //填写项目仓库页面
       proSql: "/main/buildPro/proSteps/proSql", //填写项目sql页面
     },
-    project:{
-      list:"/main/project",//项目的列表
-      detail:"/main/project/detail",//项目的详情
-      logs:"/main/project/logs",//项目的详情
+    project: {
+      list: "/main/project",//项目的列表
+      detail: "/main/project/detail",//项目的详情
+      logs: "/main/project/logs",//项目的详情
+    },
+    login: {
+      login: "/login/index", //登录
+      reg: "/login/index/reg" //注册
     }
   }
 }

@@ -1,0 +1,38 @@
+<nz-layout class="login-layout">
+  <!--登录页的顶部start-->
+  <nz-header class="login-header">
+    <!--登录页logo start-->
+    <div class="login-logo">
+      <img [src]="app.logoDark">
+    </div>
+    <!--登录页logo end-->
+  </nz-header>
+  <!--登录页的顶部end-->
+  <!--注册中心 start-->
+  <nz-content>
+    <div class="login-center" style="padding: 0;">
+      <div class="reg-info">
+        <div class="mt-20">
+          <nz-input [nzPlaceHolder]="'登录账户'" required [(ngModel)]="account" [nzSize]="'large'">
+          </nz-input>
+        </div>
+        <div class="mt-20">
+          <nz-input [nzPlaceHolder]="'登录密码'" required [(ngModel)]="pwd" [nzType]="'password'" [nzSize]="'large'">
+          </nz-input>
+        </div>
+        <div class="mt-20 fr">
+          <button nz-button [nzType]="'default'" [routerLink]="loginUrl">
+            <span>去登录</span>
+          </button>
+          <button nz-button [nzType]="'primary'" (click)="reg()">
+            <span>提交注册</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nz-content>
+  <!--注册中心 end-->
+  <!--登录页底部 start-->
+  <nz-footer class="login-footer">{{app.copyright}}</nz-footer>
+  <!--登录页底 部 end-->
+</nz-layout>

@@ -16,16 +16,17 @@ const PROXY_CONFIG = [
   {
     context: [
       '/project',//项目管理控制器
+      '/login',//登录注册
       '/framework'//框架技术控制器
     ],
-    target: lx + "8090",   //拦截 context配置路径，经过此地址
+    target: sz + "8080",   //拦截 context配置路径，经过此地址
     secure: false
   },
   {
     context: [
       "/res"
     ],
-    target: csj + "8082",   //拦截 context配置路径，经过此地址
+    target: sz + "8082",   //拦截 context配置路径，经过此地址
     secure: false
   }
 ];
