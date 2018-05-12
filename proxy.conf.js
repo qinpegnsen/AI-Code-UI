@@ -5,8 +5,9 @@ const sg = 'http://192.168.10.111:';  //善谷
 const zyg = 'http://192.168.10.167:'; //张阳光
 const gh = 'http://192.168.10.109:';  //高辉
 const wp = 'http://192.168.10.182:';  //万鹏
-const csj = 'http://192.168.10.221:';  //测试机
-const lx = 'http://192.168.10.173:';  //测试机
+// const csj = 'http://192.168.10.221:';  //测试机
+const lx = 'http://192.168.10.173:';  //lixin
+const csj = 'http://192.168.10.250:';  //测试机
 
 /**
  * 配置代理
@@ -16,7 +17,6 @@ const PROXY_CONFIG = [
   {
     context: [
       '/project',//项目管理控制器
-      '/login',//登录注册
       '/framework'//框架技术控制器
     ],
     target: sz + "8080",   //拦截 context配置路径，经过此地址
@@ -26,7 +26,7 @@ const PROXY_CONFIG = [
     context: [
       "/res"
     ],
-    target: sz + "8082",   //拦截 context配置路径，经过此地址
+    target: sz + "8080",   //拦截 context配置路径，经过此地址
     secure: false
   }
 ];

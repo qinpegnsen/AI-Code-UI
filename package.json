@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4200 --host 192.168.10.115 --proxy-config proxy.conf.js",
-    "start:aot": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng serve --port 4200 --proxy-config proxy.conf.js -aot",
+    "start": "ng serve --host 192.168.10.137 --port 4600 --proxy-config proxy.conf.js",
+    "start:aot": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng serve --port 4600 --proxy-config proxy.conf.js -aot",
     "build": "ng build",
     "build:prod": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --target=production --environment=prod",
     "test": "ng test",
@@ -25,7 +25,7 @@
     "@angular/router": "^5.0.0",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
-    "ng-zorro-antd": "^0.6.0-rc.3",
+    "ng-zorro-antd": "0.6.12",
     "ngx-monaco-editor": "^2.0.1",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
